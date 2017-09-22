@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.goodcard.dao.SearchKeywordDAO">
+
+	<insert id="insertSearchKeyword" parameterType="searchKeyword">
+		insert into
+		SEARCH_KEYWORD
+		(AGE, CARD_TYPE, COMMUNICATION, RESTAURANT, MART,
+		BEAUTY, GASSTATION, FASTFOOD, SUPERMARKET, BOOKSTORE,
+		MOVIE, CAFETERIA,
+		ONLINESHOPPING, ACADEMY, TRANSPORTATION, CAFE,
+		CONVENIENCE, AMUSEMENTPARK, MEDICAL)
+		values
+		(#{age}, #{cardType}, #{communication},
+		#{restaurant}, #{mart}, #{beauty},
+		#{gasStation}, #{fastFood}, #{superMarket}, #{bookstore}, #{movie},
+		#{cafeteria}, #{onlineShopping}, #{academy}, #{transportation}, #{cafe},
+		#{convenience}, #{amusementPark}, #{medical})
+	</insert>
+
+</mapper>

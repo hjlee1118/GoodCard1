@@ -1,0 +1,106 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+#topMenuMainNav {
+	position: absolute;
+	border-bottom: 1px solid #eee;
+	background-color: #fff;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	-web-kit-highlight-color: #0085a1; 
+}
+
+#topMenuMainNav .navbar-brand {
+	font-weight: 800;
+	color: #333
+}
+
+#topMenuMainNav .navbar-toggler {
+	font-size: 12px;
+	font-weight: 800;
+	padding: 13px;
+	text-transform: uppercase;
+	color: #333
+}
+
+#topMenuMainNav .navbar-nav>li.nav-item>a {
+	font-size: 16px;
+	font-weight: normal;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-family: 'Noto Sans KR', serif;
+}
+
+.nav-link:hover{
+	color: #0085a1;	
+} 
+
+@media only screen and (min-width:992px) {
+	#topMenuMainNav {
+		border-bottom: 1px solid transparent;
+	}
+	#topMenuMainNav .navbar-brand {
+		padding: 15px 20px;
+		color: #333
+	}
+	#topMenuMainNav .navbar-brand:focus {
+		color: #0085a1;
+	}
+	#topMenuMainNav .navbar-nav>li.nav-item>a {
+		padding: 15px 20px;
+		color: #333
+	}
+	#topMenuMainNav .navbar-nav>li.nav-item>a:focus{
+		color: #0085a1;
+	}
+	
+	.nav-link:hover{
+		color: #0085a1;	
+	} 
+}
+
+@media only screen and (min-width:1170px) {
+	#topMenuMainNav {
+		-webkit-transition: background-color .2s;
+		-moz-transition: background-color .2s;
+		transition: background-color .2s;
+		-webkit-transform: translate3d(0, 0, 0);
+		-moz-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		-o-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		-webkit-backface-visibility: hidden
+	}
+	#topMenuMainNav.is-fixed {
+		position: fixed;
+		top: -77px;
+		-webkit-transition: -webkit-transform .2s;
+		-moz-transition: -moz-transform .2s;
+		transition: transform .2s;
+		border-bottom: 1px solid #fff;
+		background-color: #333
+	}
+	#topMenuMainNav.is-fixed .navbar-brand {
+		color: #333
+	}
+	#topMenuMainNav.is-fixed .navbar-brand:focus
+		{
+		color: #0085a1
+	}
+	#topMenuMainNav.is-fixed .navbar-nav>li.nav-item>a {
+		color: #333
+	}
+	#topMenuMainNav.is-fixed .navbar-nav>li.nav-item>a:focus
+		{
+		color: #0085a1
+	}
+	#topMenuMainNav.is-visible {
+		-webkit-transform: translate3d(0, 100%, 0);
+		-moz-transform: translate3d(0, 100%, 0);
+		-ms-transform: translate3d(0, 100%, 0);
+		-o-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0)
+	}
+	
+	.nav-link:hover{
+		color: #0085a1;	
+	} 
+}

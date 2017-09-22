@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.goodcard.dao.RecommendDAO">
+	
+	<insert id="insertPoll" parameterType="poll">
+		insert into POLL (member_no, amount, age, card_type) values(#{memberNo}, #{amount}, #{age}, #{cardtype})
+	</insert>
+	
+	<insert id="insertTransportation" parameterType="transportation">
+		insert into TRANSPORTATION (AMOUNT) values(#{transportationAmount})
+	</insert>
+	
+	<insert id="insertCommunication" parameterType="communication">
+		insert into COMMUNICATION (AMOUNT, SKT, KT, UPLUS, ETC)
+		values(#{communicationAmount}, #{communicationSkt}, #{communicationKt}, #{communicationUPlus}, #{communicationEtc})
+	</insert>
+	
+	<insert id="insertGasStation" parameterType="gasStation">
+		insert into GASSTATION (AMOUNT) values(#{gasStationAmount})	
+	</insert>
+	
+	<insert id="insertMovie" parameterType="movie">
+		insert into MOVIE (AMOUNT) values(#{movieAmount})
+	
+	</insert>
+	
+	<insert id="insertCafeBakery" parameterType="cafeBakery">
+		insert into CAFEBAKERY (AMOUNT, STARBUCKS, TWOSOMEPLACE, CAFEBENE,
+					ANGELINUS, COFFEBEAN, EDIYA, HOLLYS, BASKINROBBINS, 
+					DUNKINDONUTS, PASCUCCI, TOMNTOMS, SMOOTHIEKING, 
+					PARISBAGUETTE, TOUSLESJOURS, ETC) 
+		values
+		(#{cafeBakeryAmount},
+				#{starbucks},#{twosomePlace},#{cafebene},
+				#{angelinus},#{coffebean},#{ediya},#{hollys},
+				#{baskinRobbins},#{dunkinDonuts},#{pascucci},
+				#{tomNToms},#{smoothieKing},#{parisBaguette},
+				#{tousLesJours},#{cafeBakeryEtc})
+	</insert>
+
+	<insert id="insertRestaurant" parameterType="restaurant">
+		insert into RESTAURANT (AMOUNT, outback, vips, ashley, 
+		tgif, madforgarlic, ETC) 
+		values
+		(#{restaurantAmount}, #{outback},
+		#{vips}, #{ashley}, #{tgif}, #{madForGarlic}, #{restaurantEtc})
+	</insert>
+
+	<insert id="insertFastFood" parameterType="fastFood">
+		insert into FASTFOOD (AMOUNT, MCDONALDS, LOTTERIA, BURGURKING, KFC, MRPIZZA, DOMINOPIZZA, PIZZAHUT, PAPAJOHNS, ETC)
+		values
+		(#{fastFoodAmount}, #{mcDonalds}, #{lotteRia},
+		#{burgurKing}, #{kfc}, #{mrPizza}, #{dominoPizza}, #{pizzaHut},
+		#{papaJohns},#{fastFoodEtc})	
+	</insert>
+
+	<insert id="insertCafeteria" parameterType="cafeteria">
+		insert into CAFETERIA (AMOUNT) values(#{cafeteriaAmount})	
+	</insert>
+
+	<insert id="insertConvenience" parameterType="convenience">
+		insert into CONVENIENCE (AMOUNT) values(#{convenienceAmount})	
+	</insert>
+
+	<insert id="insertMart" parameterType="mart">		
+		insert into MART (AMOUNT) values(#{martAmount})
+	</insert>
+
+	<insert id="insertSuperMarket" parameterType="superMarket">		
+		insert into SUPERMARKET (AMOUNT) values(#{supermarketAmount})
+	</insert>
+
+	<insert id="insertOnLineShopping" parameterType="onLineShopping">		
+		insert into ONLINESHOPPING (AMOUNT) values(#{onlineShoppingAmount})
+	</insert>
+
+	<insert id="insertBeauty" parameterType="beauty">		
+		insert into BEAUTY (AMOUNT) values(#{beautyAmount})	
+	</insert>
+
+	<insert id="insertAmusementPark" parameterType="amusementPark">	
+		insert into AMUSEMENTPARK (AMOUNT) values(#{amusementParkAmount})
+	</insert>
+
+	<insert id="insertAcademy" parameterType="academy">		
+		insert into ACADEMY (AMOUNT) values(#{academyAmount})
+	</insert>
+
+	<insert id="insertBookstore" parameterType="bookstore">	
+		insert into BOOKSTORE (AMOUNT) values(#{bookstoreAmount})	
+	</insert>
+
+	<insert id="insertMedical" parameterType="medical">
+		insert into MEDICAL (AMOUNT) values(#{medicalAmount})
+	</insert>
+	
+	<select id="selectPollNoByMemberNo" parameterType="int" resultType="int">
+		select max(no)
+		from POLL
+		where member_no = #{memberNo}
+	</select>
+	
+</mapper>

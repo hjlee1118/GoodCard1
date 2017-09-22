@@ -1,0 +1,206 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+
+.join_button {
+	border: 1px solid black;
+	color: #FFF;
+	background: black;
+	padding: 10px;
+	font-family: 'Noto Sans KR', serif;
+	text-align: center;
+	width: 30%;
+}
+
+.go_main {
+	border: 1px solid #333;
+	color: black;
+	background: white;
+	padding: 10px;
+	font-family: 'Noto Sans KR', serif;
+	text-align: center;
+}
+
+.check-id-button{
+	border : 1px solid #333;
+	color : black;
+	background : white;
+	padding : 3px;
+	font-family: 'Noto Sans KR', serif;
+	text-align: center;
+}
+
+.custom-join-input-value{
+	width: 30%;
+	border : 0;
+	border-bottom: 1px solid #333;
+	text-align: left;
+}
+
+.custom-join-input-value-3{
+	width: 8.5%;
+	border : 0;
+	border-bottom: 1px solid #333;
+	text-align: left;
+}
+
+/* 인풋 */
+input[type=radio] {display:none;}
+.radio-label {
+  display:inline-block;
+  width:auto;
+  height:30px;
+  padding:0 20px;
+  border:1px solid rgba(0,0,0,0.08);
+  margin-right:20px;
+  line-height:30px;
+  cursor:pointer;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.radio-label i {
+  margin-right:10px;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -ms-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+
+.radio:checked + .radio-label {background:rgba(4, 120, 193,0.1);
+}
+
+.radio:checked + .radio-label i { opacity: 1;}
+
+.radio + .radio-label span {
+    display:inline-block;
+    font-size:15px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+  -webkit-transform:translateX(-13px);
+  -moz-transform:translateX(-13px);
+  -ms-transform:translateX(-13px);
+  -o-transform:translateX(-13px);
+  transform:translateX(-13px);
+}
+
+.radio:checked + .radio-label span {
+  -webkit-transform:translateX(0);
+  -moz-transform:translateX(0);
+  -ms-transform:translateX(0);
+  -o-transform:translateX(0);
+  transform:translateX(0);
+}
+
+select {
+    width: 200px;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #333;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+}
+
+#search #search-input, #search .hint {
+    padding-left: 43px;
+    padding-right: 43px;
+    border-radius: 23px;
+}
+
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.form-control {
+    display: inline-block;
+    width: 25%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+site.css:5
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.custom-input-join-group-addon {
+    padding: 6px 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: left;
+    width: 200px;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: inline-table;
+}
+
+div#subMenu > a{
+	margin: 5px;
+}
+
+div#subMENU{
+	font-family: 'Noto Sans KR', serif;
+	font-size: 10pt;
+}
+
+#show_modal{
+	cursor: pointer;
+}
+
+#show_modal:hover{
+	color: #0085a1;
+}
+
+.white_content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+.white_content:target {
+    opacity:1;
+    pointer-events: auto;
+}
+.white_content > div {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 50%;
+	padding: 16px;
+	background-color: white;
+	overflow: auto;	
+}

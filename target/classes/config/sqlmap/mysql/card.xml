@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.goodcard.dao.CardDAO">
+	<update id="insertMyCard1" parameterType="member">
+		update MEMBER 
+		set CARD1 = #{card1} 
+		where NO = #{no}
+	</update>
+	
+	<update id="insertMyCard2" parameterType="member">
+		update MEMBER 
+		set CARD2 = #{card2} 
+		where NO = #{no}
+	</update>
+	
+	<update id="insertMyCard3" parameterType="member">
+		update MEMBER 
+		set CARD3 = #{card3} 
+		where NO = #{no}
+	</update>
+	
+	<update id="deleteMyCard1" parameterType="member">
+		update MEMBER 
+		set CARD1 = NULL 
+		where NO = #{no}
+	</update>
+	
+	<update id="deleteMyCard2" parameterType="member">
+		update MEMBER 
+		set CARD2 = NULL 
+		where NO = #{no}
+	</update>
+	
+	<update id="deleteMyCard3" parameterType="member">
+		update MEMBER 
+		set CARD3 = NULL 
+		where NO = #{no}
+	</update>
+
+</mapper>

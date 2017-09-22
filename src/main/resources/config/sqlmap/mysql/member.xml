@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.goodcard.dao.MemberDAO">
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="member">
+		insert into MEMBER (id, password, name, gender, email, phone, type, birthDate)
+		values(#{id}, #{password}, #{name}, #{gender}, #{email}, #{phone}, #{type}, #{birthDate})
+	</insert>
+	
+	<!-- 로그인 -->	
+	<select id="login" parameterType="member" resultType="member">
+		select *
+		from MEMBER
+		where id = #{id} and password = #{password}
+	</select>
+	
+	<!-- 아이디 중복확인 -->
+	<select id="checkId" parameterType="String" resultType="int">
+		select count(*)	from MEMBER where id = #{id}
+	</select>
+	
+	<!-- 설문조사 번호 등록 -->
+	<insert id="updatePollNo" parameterType="member">
+		update MEMBER
+		set
+		poll_no = #{pollNo}
+		where
+		no = #{no}
+	</insert>
+	
+</mapper>

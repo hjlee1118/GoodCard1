@@ -1,0 +1,9 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.recommend_path_button {
+    border: 3px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-family: 'Noto Sans KR';
+}

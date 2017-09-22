@@ -1,0 +1,19 @@
+div.display-cafeBakery-list {
+	width: 100%;
+	height: 100px;
+	margin: 0;
+}
+
+li.display-cafeBakery-li{
+	position:relative;
+	height:100%;
+	width:20%;
+	float: left;
+	text-align:center;
+	
+	border-left:1px solid #E0E0E0;
+	border-top:1px solid #E0E0E0;
+	border-bottom:1px solid #E0E0E0;
+	
+	padding: 10px;
+}

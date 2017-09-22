@@ -1,0 +1,197 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: 'Nanum Gothic', serif;
+}
+
+h4 {
+	font-family: 'Nanum Gothic', serif;
+}
+
+.custom-button-design {
+	display: inline-block;
+	padding: 0;
+	font-size: 14px;
+	font-weight: 300;
+	width: 30%;
+	height: auto;
+	line-height: 52px;
+	word-break: keep-all;
+	border: 1px solid #0085a1;
+	cursor: pointer;
+	text-align: center;
+	color: #0085a1;
+}
+
+.custom-sort-design {
+	color: gray;
+	list-style: none;
+}
+
+/* link -> visit -> hover -> active */
+span.custom-button-design:hover {
+	color: white;
+	background: #0085a1;
+}
+
+.first {
+	margin-right: 3%;
+	float: left;
+}
+
+.last {
+	margin: 0;
+	float: left;
+}
+
+i {
+	margin-right: 5px;
+}
+
+.card-image-area {
+	float: left;
+	width: 200px;
+	height: 126.6px;
+	display: inline-block;
+	margin-right: 8%;
+}
+
+span.card-detail-button {
+	border: 1px solid #0085a1;
+	padding: 10px;
+	color: #0085a1;
+	cursor: pointer;
+	margin-bottom: 10%;
+	display: inherit;
+}
+
+span.card-detail-button:hover {
+	font-weight: bold;
+}
+
+span.card-homepage-button {
+	border: 1px solid #008a1;
+	background: #0085a1;
+	padding: 10px;
+	color: white;
+	cursor: pointer;
+	margin-bottom: 10%;
+	display: inherit;
+	background: #0085a1;
+}
+
+span.card-homepage-button:hover {
+	background: #00657A;
+	font-weight: bold;
+}
+
+#footer {
+	margin-top: 100px;
+}
+
+span.paging-disabled {
+	padding: 5px;
+	margin: 0px 1%;
+	cursor: pointer;
+	text-align: center;
+}
+
+span.paging-active {
+	padding: 5px 8px;
+	background: #0085a1;
+	color: white;
+	margin: 0px 1%;
+	cursor: pointer;
+	text-align: center;
+}
+
+span.paging-active:hover {
+	font-weight: bold;
+	color: white;
+}
+
+span.paging-disabled:hover {
+	font-weight: bold;
+	color: #0085a1;
+}
+
+#paging-area-5>i {
+	color: #0085a1;
+	cursor: pointer;
+}
+
+#paging-area-5>i:hover {
+	color: #00657A;
+}
+
+.click-benefit-info-area:hover {
+	font-weight: bold;
+}
+
+.click-card-info-area:hover {
+	font-weight: bold;
+}
+
+#show_modal {
+	cursor: pointer;
+}
+
+#show_modal:hover {
+	color: #0085a1;
+}
+
+.white_content {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+	opacity: 0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.white_content:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.white_content>div {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 60%;
+	padding: 16px;
+	background-color: white;
+	overflow: auto;
+}
+
+.card-image-area {
+	width: 30%;
+	height: 30%;
+	float: left;
+	display: inline-block;
+}
+
+.card-summarized-info {
+	padding-top: 2%;
+	float: left;
+	display: inline-block;
+}
+
+.info-padding {
+	margin-bottom: 0.5%;
+	text-align: left;
+}
+
+.card-detail-subtitle {
+	font-size: 13pt;
+}
+
+.card-detail-subcontent {
+	font-size: 12pt;
+}

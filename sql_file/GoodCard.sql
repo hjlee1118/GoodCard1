@@ -1,0 +1,459 @@
+
+CREATE TABLE POLL
+(
+    `NO`         INT(11) UNSIGNED          primary key auto_increment,
+    `MEMBER_NO`  INT(11) UNSIGNED          NULL, 
+    `AMOUNT`     INT(11) UNSIGNED          NULL, 
+    `CARD_TYPE`  VARCHAR(200)    NULL, 
+    `AGE`        INT(11) UNSIGNED          NULL
+    
+);
+
+
+
+-- MEMBER Table Create SQL
+CREATE TABLE MEMBER
+(
+    `NO`         INT(11) UNSIGNED           primary key auto_increment, 
+    `ID`         VARCHAR(100)    NULL, 
+    `PASSWORD`   VARCHAR(100)    NULL, 
+    `NAME`       VARCHAR(200)    NULL, 
+    `GENDER`     VARCHAR(20)     NULL, 
+    `EMAIL`      VARCHAR(200)    NULL, 
+    `PHONE`      VARCHAR(200)    NULL, 
+    `TENDENCY`   INT(11) UNSIGNED           NULL, 
+    `POLL_NO`    INT(11) UNSIGNED           NULL, 
+    `TYPE`       VARCHAR(20)      NULL, 
+    `BIRTHDATE`  DATE             NULL
+    
+);
+
+ALTER TABLE MEMBER ADD CONSTRAINT FK_MEMBER_POLL_NO_POLL_NO FOREIGN KEY (POLL_NO)
+ REFERENCES POLL (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+ 
+ 
+
+
+-- RECORD_LIST Table Create SQL
+CREATE TABLE RECORD_LIST
+(
+    `NO`         INT(11) UNSIGNED    primary key auto_increment,  
+    `MEMBER_NO`  INT(11) UNSIGNED    NULL
+    
+);
+
+ALTER TABLE RECORD_LIST ADD CONSTRAINT FK_RECORD_LIST_MEMBER_NO_MEMBE FOREIGN KEY (MEMBER_NO)
+ REFERENCES MEMBER (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+ 
+ 
+
+
+-- EXPENSE_CATEGORY_LIST Table Create SQL
+CREATE TABLE EXPENSE_CATEGORY_LIST
+(
+    `NO`    INT(11) UNSIGNED          primary key auto_increment,  
+    `NAME`  VARCHAR(20)    NULL
+    
+);
+
+
+
+-- ASSET_CATEGORY Table Create SQL
+CREATE TABLE ASSET_CATEGORY
+(
+    `NO`    INT(11) UNSIGNED          primary key auto_increment,  
+    `NAME`  VARCHAR(20)    NULL
+    
+);
+
+
+
+
+
+
+-- INCOME_CATEGORY Table Create SQL
+CREATE TABLE INCOME_CATEGORY
+(
+    `NO`    INT(11) UNSIGNED          primary key auto_increment,  
+    `NAME`  VARCHAR(20)    NULL
+    
+);
+
+
+
+-- EXPENSE Table Create SQL
+CREATE TABLE EXPENSE
+(
+    `NO`                          INT(11) UNSIGNED           primary key auto_increment, 
+    `EXPENSE_CATEGORY_LIST_NO`    INT(11) UNSIGNED            NULL, 
+    `EXPENSE_CATEGORY_LIST_NAME`  VARCHAR(20)      NULL, 
+    `EXPENSE_CATEGORY_NO`         INT(11) UNSIGNED            NULL, 
+    `EXPENSE_CATEGORY_NAME`       VARCHAR(20)      NULL, 
+    `DETAIL`                      VARCHAR(2000)    NULL, 
+    `AMOUNT`                      INT(11) UNSIGNED            NULL, 
+    `ASSET_NO`                    INT(11) UNSIGNED            NULL, 
+    `ASSET_CATEGORY`              VARCHAR(20)      NULL, 
+    `ASSET_DETAIL`                VARCHAR(20)      NULL, 
+    `EXPENSE_TERM`                INT(11) UNSIGNED            NULL, 
+    `EXPENSE_DATE`                DATE              NULL, 
+    `MEMO`                        VARCHAR(2000)    NULL, 
+    `RECORD_LIST_NO`              INT(11) UNSIGNED            NULL
+    
+);
+
+
+
+ALTER TABLE EXPENSE ADD CONSTRAINT FK_EXPENSE_RECORD_LIST_NO_RECO FOREIGN KEY (RECORD_LIST_NO)
+ REFERENCES RECORD_LIST (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE EXPENSE ADD CONSTRAINT FK_EXPENSE_EXPENSE_CATEGORY_LI FOREIGN KEY (EXPENSE_CATEGORY_LIST_NO)
+ REFERENCES EXPENSE_CATEGORY_LIST (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- INCOME Table Create SQL
+CREATE TABLE INCOME
+(
+    `NO`                    INT(11) UNSIGNED           primary key auto_increment, 
+    `INCOME_CATEGORY_NO`    INT(11) UNSIGNED            NULL, 
+    `INCOME_CATEGORY_NAME`  VARCHAR(2000)    NULL, 
+    `DETAIL`                VARCHAR(2000)    NULL, 
+    `AMOUNT`                INT(11) UNSIGNED            NULL, 
+    `ASSET_NO`              INT(11) UNSIGNED            NULL, 
+    `ASSET_CATEGORY_NAME`   VARCHAR(2000)    NULL, 
+    `ASSET_DETAIL`          VARCHAR(2000)    NULL, 
+    `INCOME_DATE`           DATE              NULL, 
+    `MEMO`                  VARCHAR(2000)    NULL, 
+    `RECORD_LIST_NO`        INT(11) UNSIGNED            NULL
+    
+);
+
+
+
+ALTER TABLE INCOME ADD CONSTRAINT FK_INCOME_RECORD_LIST_NO_RECOR FOREIGN KEY (RECORD_LIST_NO)
+ REFERENCES RECORD_LIST (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE INCOME ADD CONSTRAINT FK_INCOME_INCOME_CATEGORY_NO_I FOREIGN KEY (INCOME_CATEGORY_NO)
+ REFERENCES INCOME_CATEGORY (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- ASSET Table Create SQL
+CREATE TABLE ASSET
+(
+    `NO`                   INT(11) UNSIGNED            primary key auto_increment,  
+    `ASSET_CATEGORY_NO`    INT(11) UNSIGNED            NULL, 
+    `ASSET_CATEGORY_NAME`  VARCHAR(2000)    NULL, 
+    `DETAIL`               VARCHAR(2000)    NULL, 
+    `AMOUNT`               INT(11) UNSIGNED            NULL, 
+    `MEMO`                 VARCHAR(2000)    NULL, 
+    `RECORD_LIST_NO`       INT(11) UNSIGNED            NULL
+    
+);
+
+
+
+ALTER TABLE ASSET ADD CONSTRAINT FK_ASSET_ASSET_CATEGORY_NO_ASS FOREIGN KEY (ASSET_CATEGORY_NO)
+ REFERENCES ASSET_CATEGORY (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE ASSET ADD CONSTRAINT FK_ASSET_RECORD_LIST_NO_RECORD FOREIGN KEY (RECORD_LIST_NO)
+ REFERENCES RECORD_LIST (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- EXPENSE_CATEGORY Table Create SQL
+CREATE TABLE EXPENSE_CATEGORY
+(
+    `NO`                INT(11) UNSIGNED          primary key auto_increment,  
+    `NAME`              VARCHAR(20)    NULL, 
+    `CATEGORY_LIST_NO`  INT(11) UNSIGNED          NULL
+    
+);
+
+
+
+ALTER TABLE EXPENSE_CATEGORY ADD CONSTRAINT FK_EXPENSE_CATEGORY_CATEGORY_L FOREIGN KEY (CATEGORY_LIST_NO)
+ REFERENCES EXPENSE_CATEGORY_LIST (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- TENDENCY Table Create SQL
+CREATE TABLE TENDENCY
+(
+    `NO`         INT(11) UNSIGNED    primary key auto_increment, 
+    `MEMBER_NO`  INT(11) UNSIGNED    NULL, 
+    `POLL_NO`    INT(11) UNSIGNED    NULL
+    
+);
+
+
+ALTER TABLE TENDENCY ADD CONSTRAINT FK_TENDENCY_MEMBER_NO_MEMBER_N FOREIGN KEY (MEMBER_NO)
+ REFERENCES MEMBER (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE TENDENCY ADD CONSTRAINT FK_TENDENCY_POLL_NO_POLL_NO FOREIGN KEY (POLL_NO)
+ REFERENCES POLL (NO)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- TRANSPORTATION Table Create SQL
+CREATE TABLE TRANSPORTATION
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment, 
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+-- COMMUNICATION Table Create SQL
+CREATE TABLE COMMUNICATION
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL, 
+    `SKT`     INT(11) UNSIGNED    NULL, 
+    `KT`      INT(11) UNSIGNED    NULL, 
+    `UPLUS`   INT(11) UNSIGNED    NULL, 
+    `ETC`     INT(11) UNSIGNED    NULL
+    
+);
+
+-- GASSTATION Table Create SQL
+CREATE TABLE GASSTATION
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+-- MOVIE Table Create SQL
+CREATE TABLE MOVIE
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+-- CAFEBAKERY Table Create SQL
+CREATE TABLE CAFEBAKERY
+(
+    `NO`             INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`         INT(11) UNSIGNED    NULL, 
+    `STARBUCKS`      INT(11) UNSIGNED    NULL, 
+    `TWOSOMEPLACE`   INT(11) UNSIGNED    NULL, 
+    `CAFEBENE`       INT(11) UNSIGNED    NULL, 
+    `ANGELINUS`      INT(11) UNSIGNED    NULL, 
+    `COFFEBEAN`      INT(11) UNSIGNED    NULL, 
+    `EDIYA`          INT(11) UNSIGNED    NULL, 
+    `HOLLYS`         INT(11) UNSIGNED    NULL, 
+    `BASKINROBBINS`  INT(11) UNSIGNED    NULL, 
+    `DUNKINDONUTS`   INT(11) UNSIGNED    NULL, 
+    `PASCUCCI`       INT(11) UNSIGNED    NULL, 
+    `TOMNTOMS`       INT(11) UNSIGNED    NULL, 
+    `SMOOTHIEKING`   INT(11) UNSIGNED    NULL, 
+    `PARISBAGUETTE`  INT(11) UNSIGNED    NULL, 
+    `TOUSLESJOURS`   INT(11) UNSIGNED    NULL, 
+    `ETC`            INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+
+-- RESTAURANT Table Create SQL
+CREATE TABLE RESTAURANT
+(
+    `NO`            INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`        INT(11) UNSIGNED    NULL, 
+    `OUTBACK`       INT(11) UNSIGNED    NULL, 
+    `VIPS`          INT(11) UNSIGNED    NULL, 
+    `ASHLEY`        INT(11) UNSIGNED    NULL, 
+    `TGIF`          INT(11) UNSIGNED    NULL, 
+    `MADFORGARLIC`  INT(11) UNSIGNED    NULL, 
+    `ETC`           INT(11) UNSIGNED    NULL
+    
+);
+
+
+-- FASTFOOD Table Create SQL
+CREATE TABLE FASTFOOD
+(
+    `NO`           INT(11) UNSIGNED    primary key auto_increment, 
+    `AMOUNT`       INT(11) UNSIGNED    NULL, 
+    `MCDONALDS`    INT(11) UNSIGNED    NULL, 
+    `LOTTERIA`     INT(11) UNSIGNED    NULL, 
+    `BURGURKING`   INT(11) UNSIGNED    NULL, 
+    `KFC`          INT(11) UNSIGNED    NULL, 
+    `MRPIZZA`      INT(11) UNSIGNED    NULL, 
+    `DOMINOPIZZA`  INT(11) UNSIGNED    NULL, 
+    `PIZZAHUT`     INT(11) UNSIGNED    NULL, 
+    `PAPAJOHNS`    INT(11) UNSIGNED    NULL, 
+    `ETC`          INT(11) UNSIGNED    NULL
+    
+);
+
+
+-- CAFETERIA Table Create SQL
+CREATE TABLE CAFETERIA
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+-- CONVENIENCE Table Create SQL
+CREATE TABLE CONVENIENCE
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+
+-- MART Table Create SQL
+CREATE TABLE MART
+(
+    `NO`      INT(11) UNSIGNED   primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+
+
+-- SUPERMARKET Table Create SQL
+CREATE TABLE SUPERMARKET
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+-- ONLINESHOPPING Table Create SQL
+CREATE TABLE ONLINESHOPPING
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment, 
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+-- AMUSEMENTPARK Table Create SQL
+CREATE TABLE AMUSEMENTPARK
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+
+
+-- BEAUTY Table Create SQL
+CREATE TABLE BEAUTY
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment, 
+    `AMOUNT`  INT(11) UNSIGNED    NULL
+    
+);
+
+
+-- BOOKSTORE Table Create SQL
+CREATE TABLE BOOKSTORE
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment, 
+    `AMOUNT`  INT(11) UNSIGNED    NULL 
+    
+);
+
+
+-- ACADEMY Table Create SQL
+CREATE TABLE ACADEMY
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL 
+    
+);
+
+
+-- MEDICAL Table Create SQL
+CREATE TABLE MEDICAL
+(
+    `NO`      INT(11) UNSIGNED    primary key auto_increment,  
+    `AMOUNT`  INT(11) UNSIGNED    NULL 
+    
+);
+
+select * from MEMBER;
+
+ 
+/*
+SET @tables = NULL;
+ SELECT GROUP_CONCAT(table_schema, '.', table_name) INTO @tables
+   FROM information_schema.tables 
+   WHERE table_schema = 'hana'; -- specify DB name here.
+
+ SET @tables = CONCAT('DROP TABLE ', @tables);
+ PREPARE stmt FROM @tables;
+ EXECUTE stmt;
+ DEALLOCATE PREPARE stmt;
+*/
+/
+--CREATE SEQUENCE POLL_SEQ;
+--CREATE SEQUENCE MEMBER_SEQ;
+--CREATE SEQUENCE RECORD_LIST_SEQ;
+--CREATE SEQUENCE EXPENSE_CATEGORY_LIST_SEQ;
+--CREATE SEQUENCE ASSET_CATEGORY_SEQ;
+--CREATE SEQUENCE INCOME_CATEGORY_SEQ;
+--CREATE SEQUENCE EXPENSE_SEQ;
+--CREATE SEQUENCE INCOME_SEQ;
+--CREATE SEQUENCE ASSET_SEQ;
+--CREATE SEQUENCE EXPENSE_CATEGORY_SEQ;
+--CREATE SEQUENCE TENDENCY_SEQ;
+--CREATE SEQUENCE TRANSPORTATION_SEQ;
+--CREATE SEQUENCE COMMUNICATION_SEQ;
+--CREATE SEQUENCE GASSTATION_SEQ;
+--CREATE SEQUENCE MOVIE_SEQ;
+--CREATE SEQUENCE CAFEBAKERY_SEQ;
+--CREATE SEQUENCE RESTAURANT_SEQ;
+--CREATE SEQUENCE FASTFOOD_SEQ;
+--CREATE SEQUENCE CAFETERIA_SEQ;
+--CREATE SEQUENCE CONVENIENCE_SEQ;
+--CREATE SEQUENCE MART_SEQ;
+--CREATE SEQUENCE SUPERMARKET_SEQ;
+--CREATE SEQUENCE ONLINESHOPPING_SEQ;
+--CREATE SEQUENCE AMUSEMENTPARK_SEQ;
+--CREATE SEQUENCE BEAUTY_SEQ;
+--CREATE SEQUENCE BOOKSTORE_SEQ;
+--CREATE SEQUENCE ACADEMY_SEQ;
+--CREATE SEQUENCE MEDICAL_SEQ;
+
+
+
+CREATE TABLE SEARCH_KEYWORD
+(
+    `NO`              INT        NOT NULL    AUTO_INCREMENT, 
+    `AGE`             INT        NULL, 
+    `CARD_TYPE`       VARCHAR(45)    NULL, 
+    `COMMUNICATION`   INT            NULL, 
+    `RESTAURANT`      INT            NULL, 
+    `MART`            INT            NULL, 
+    `BEUATY`          INT            NULL, 
+    `GASSTATION`      INT            NULL, 
+    `FASTFOOD`        INT            NULL, 
+    `SUPERMARKET`     INT            NULL, 
+    `BOOKSTORE`       INT            NULL, 
+    `MOVIE`           INT            NULL, 
+    `CAFETERIA`       INT            NULL, 
+    `ONLINESHOPPING`  INT            NULL, 
+    `ACADEMY`         INT            NULL, 
+    `TRANSPORTATION`  INT            NULL, 
+    `CAFE`            INT            NULL, 
+    `CONVENIENCE`     INT            NULL, 
+    `AMUSEMENTPARK`   INT            NULL, 
+    `MEDICAL`         INT            NULL, 
+    PRIMARY KEY (NO)
+);
