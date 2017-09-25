@@ -121,7 +121,7 @@
 							style="display: none; text-align: left; color: red;"
 							class="custom-input-group"> <span
 							class="custom-input-group-addon custom-input-category"></span> ※
-							영문, 숫자, 특수문자 혼합, 5~15자
+							영문, 숫자, 5~15자
 						</span>
 
 					</div>

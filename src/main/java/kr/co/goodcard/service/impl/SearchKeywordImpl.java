@@ -17,11 +17,11 @@ public class SearchKeywordImpl implements SearchKeywordService {
 	SearchKeywordDAO searchKeywordDAO;
 
 	@Override
-	public boolean insertSearchKeyword(Member member, List<String> list, String cardType) {
+	public boolean insertSearchKeyword(List<String> list, int age, String cardType) {
 
 		SearchKeyword searchKeyword = new SearchKeyword();
 
-		searchKeyword.setAge(member.getNo());
+		searchKeyword.setAge(age);
 		searchKeyword.setCardType(cardType);
 
 		if (list.get(0).equals("a")) {

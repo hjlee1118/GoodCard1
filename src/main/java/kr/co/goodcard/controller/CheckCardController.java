@@ -2,6 +2,7 @@ package kr.co.goodcard.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -30,6 +31,7 @@ import com.mongodb.MongoClient;
 
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
+import kr.co.goodcard.util.AgeUtils;
 import kr.co.goodcard.vo.CheckCard;
 import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
@@ -512,9 +514,20 @@ public class CheckCardController {
 				searchKeywordList.add(list.get(i));
 				checkCategoryList.add(list.get(i));
 			}
+			
+			if(member != null){
+				Date date = new Date(member.getBirthDate().getTime());
+				
+				int birthYear = date.getYear()+1900;
+				int birthMonth = date.getMonth()+1;
+				int birthDay = date.getDate();
 
-			searchKeywordService.insertSearchKeyword(member, list, "check");
-
+				int age = AgeUtils.getAge(birthYear, birthMonth, birthDay);
+				
+				boolean b = searchKeywordService.insertSearchKeyword(list, age, "check");
+				System.out.println("check search keyword : " + b);
+			}
+			
 			if (checkCnt > 0) {
 				session.setAttribute("checkDataList", checkDataList);
 			} else {

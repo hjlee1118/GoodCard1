@@ -8,6 +8,6 @@ import kr.co.goodcard.vo.SearchKeyword;
 public interface SearchKeywordService {
 	
 
-	boolean insertSearchKeyword(Member member, List<String> list, String cardType);
+	boolean insertSearchKeyword(List<String> list, int age, String cardType);
 
 }

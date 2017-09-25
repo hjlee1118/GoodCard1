@@ -16,31 +16,13 @@
 	<div class="container">
 		<a class="navbar-brand" href="${ pageContext.request.contextPath }">Good
 			Card</a>
-		<button class="navbar-toggler navbar-toggler-right" type="button"
-			data-toggle="collapse" data-target="#navbarResponsive"
-			aria-controls="navbarResponsive" aria-expanded="false"
-			aria-label="Toggle navigation">
-			Menu <i class="fa fa-bars"></i>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/recommend/poll.do">통계 자료</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/card/creditcard.do">마케팅 전략 추천</a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/card/checkcard.do">카드 상품 관리</a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/member/mypage.do">이벤트 관리</a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/member/logout.do">로그아웃</a>
-				</li>
-			</ul>
-		</div>
+		<div style="float: right; font-size: 12pt;">
+			<span><b>${ loginUser.id }</b> 님 환영합니다</span>
+			<span style="margin:0px 10px;"></span>
+			<span><a href="${ pageContext.request.contextPath }/member/logout.do" style="color: #0085a1;">로그아웃</a></span>
 	</div>
+	</div>
+	
 </nav>
 
 <div style="height: 80px; clear: both;"></div>

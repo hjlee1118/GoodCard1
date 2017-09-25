@@ -431,7 +431,7 @@ SET @tables = NULL;
 --CREATE SEQUENCE ACADEMY_SEQ;
 --CREATE SEQUENCE MEDICAL_SEQ;
 
-
+drop table SEARCH_KEYWORD;
 
 CREATE TABLE SEARCH_KEYWORD
 (
@@ -441,7 +441,7 @@ CREATE TABLE SEARCH_KEYWORD
     `COMMUNICATION`   INT            NULL, 
     `RESTAURANT`      INT            NULL, 
     `MART`            INT            NULL, 
-    `BEUATY`          INT            NULL, 
+    `BEAUTY`          INT            NULL, 
     `GASSTATION`      INT            NULL, 
     `FASTFOOD`        INT            NULL, 
     `SUPERMARKET`     INT            NULL, 
@@ -457,3 +457,7 @@ CREATE TABLE SEARCH_KEYWORD
     `MEDICAL`         INT            NULL, 
     PRIMARY KEY (NO)
 );
+
+commit;
+
+select ID, PASSWORD, BIRTHDATE from MEMBER;
