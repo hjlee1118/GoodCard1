@@ -199,7 +199,7 @@
 							<option value="017">017</option>
 							<option value="018">018</option>
 							<option value="019">019</option>
-					</select>
+						</select>
 					<span style="margin: 5px;">-</span>
 					<input type="text" id="inputPhone2" name="phone2" class="custom-join-input-value-3"/>
 					<span style="margin: 5px;">-</span>
