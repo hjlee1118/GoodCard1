@@ -8,5 +8,7 @@ import kr.co.goodcard.vo.SearchKeyword;
 public interface SearchKeywordDAO {
 
 	boolean insertSearchKeyword(SearchKeyword searchKeyword);
+	
+	SearchKeyword getgetCreditBestBenefit();
 
 }

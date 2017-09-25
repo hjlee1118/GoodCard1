@@ -5,18 +5,34 @@
 <mapper namespace="kr.co.goodcard.dao.SearchKeywordDAO">
 
 	<insert id="insertSearchKeyword" parameterType="searchKeyword">
-		insert into	SEARCH_KEYWORD
+		insert into
+		SEARCH_KEYWORD
 		(AGE, CARD_TYPE, COMMUNICATION, RESTAURANT, MART,
 		BEAUTY, GASSTATION, FASTFOOD, SUPERMARKET, BOOKSTORE,
 		MOVIE, CAFETERIA,
 		ONLINESHOPPING, ACADEMY, TRANSPORTATION, CAFE,
-		CONVENIENCE, AMUSEMENTPARK, MEDICAL)
+		CONVENIENCE,
+		AMUSEMENTPARK, MEDICAL)
 		values
 		(#{age}, #{cardType}, #{communication},
 		#{restaurant}, #{mart}, #{beauty},
-		#{gasStation}, #{fastFood}, #{superMarket}, #{bookstore}, #{movie},
-		#{cafeteria}, #{onlineShopping}, #{academy}, #{transportation}, #{cafe},
+		#{gasStation}, #{fastFood},
+		#{superMarket}, #{bookstore}, #{movie},
+		#{cafeteria},
+		#{onlineShopping}, #{academy}, #{transportation}, #{cafe},
 		#{convenience}, #{amusementPark}, #{medical})
 	</insert>
 
+	<select id="getgetCreditBestBenefit" resultType="searchKeyword">
+		select
+		sum(COMMUNICATION) as communication, sum(RESTAURANT) as restaurant,
+		sum(MART) as mart, sum(BEAUTY) as beauty, sum(GASSTATION) as
+		gasStation, sum(FASTFOOD) as fastFood,
+		sum(SUPERMARKET) as superMarket, sum(BOOKSTORE) as bookstore, sum(MOVIE) as movie,
+		sum(CAFETERIA) as cafeteria, sum(ONLINESHOPPING) as onlineShopping,
+		sum(ACADEMY) as academy, sum(TRANSPORTATION) as transportation,
+		sum(CAFE) as cafe, sum(CONVENIENCE) as convenience, sum(AMUSEMENTPARK)
+		as amusementPark, sum(MEDICAL) as medical
+		from SEARCH_KEYWORD
+	</select>
 </mapper>

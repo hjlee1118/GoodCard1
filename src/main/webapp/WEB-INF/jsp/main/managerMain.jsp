@@ -176,13 +176,13 @@ i.click {
 						<div class="recommend_keyword_rank"
 							style="border-right: 1px solid #dde8f6">
 							<b>신용카드 인기 혜택</b>
-							<c:forEach begin="1" end="10" varStatus="status">
+							<c:forEach items="${creditBestBenefitList}" var="list" begin="1" end="10" varStatus="status">
 								<div style="height: 30px; clear: both;"></div>
 								<div style="width: 100%; text-align: left; padding-left: 15%;">
 									<div id="rank_num"
 										style="width: 15%; color: #3387DE; font-weight: bold; display: inline-block;">${status.index}</div>
 									<div id="rank_name"
-										style="color: #7b7b7b; display: inline-block;">통신통신</div>
+										style="color: #7b7b7b; display: inline-block;">${list}</div>
 								</div>
 							</c:forEach>
 						</div>

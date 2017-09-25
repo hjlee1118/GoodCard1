@@ -60,16 +60,26 @@
 				.replace('${context}/credit.do?pageNo=' + obj.getAttribute('id'));
 	};
 
-	function goDetailPage(cardNo) {
-		var status = $('#mycard_detail_' + cardNo).attr('title');
-
-		if (status == 'I') {
-			$('#modal_mycard_' + cardNo).attr('title', 'I');
-			$('#modal_mycard_' + cardNo).attr('class', 'fa fa-plus fa-2x');
-		} else {
-			$('#modal_mycard_' + cardNo).attr('title', 'D');
-			$('#modal_mycard_' + cardNo).attr('class', 'fa fa-minus fa-2x');
-		}
+	function goDetailPage(cardNo, cardId) {
+		
+		var id = {
+			'id' : cardId
+		};
+		
+		$.ajax({
+			type:"POST",
+			url:"${context}/credit/updateViewCnt.do",
+			data:id,
+			dataType:'json',
+			success: function(id){
+				alert('조회수 증가');
+			},
+			error : function(xhr, status, error) {
+				alert('조회수 실패');
+			}
+		});
+		
+		alert(cardId);
 	};
 
 	function modalMyCard(obj, cardNo) {
@@ -716,7 +726,7 @@
 
 					<div style="display: inline-block; float: right; height: 100%;">
 						<span style="text-align: center;" class="card-detail-button"
-							onclick="goDetailPage('${cardNo}')"> <a
+							onclick="goDetailPage('${cardNo}', '${list.id }')"> <a
 							href="#open${ cardNo }" class="card-detail-button"
 							style="color: #0085a1;">상세 보기</a>
 						</span> <span class="card-homepage-button"

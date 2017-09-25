@@ -23,6 +23,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 import kr.co.goodcard.service.CardService;
@@ -538,6 +539,27 @@ public class CreditCardController {
 		} else {
 			return false;
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("credit/updateViewCnt.do")
+	public boolean updateViewCnt(String id){
+		
+		System.out.println(id);
+		
+		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+		DB db = mongo.getDB("hana");
+
+		// get a single collection
+		DBCollection collection = db.getCollection("creditCard");
+		
+		BasicDBObject newDocument =
+				new BasicDBObject().append("$inc",
+				new BasicDBObject().append("viewCount", 1));
+		
+		collection.update(new BasicDBObject().append("_id", id), newDocument);
+		
+		return true;
 	}
 
 }
