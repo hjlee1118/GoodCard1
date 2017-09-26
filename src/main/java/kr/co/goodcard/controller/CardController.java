@@ -17,7 +17,6 @@ public class CardController {
 	
 	@Autowired
 	CardService cardService;
-	
 
 	@ResponseBody
 	@RequestMapping(value = "insertMyCard.do", method = RequestMethod.POST)

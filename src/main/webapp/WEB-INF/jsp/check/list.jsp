@@ -60,16 +60,23 @@
 				.replace('${context}/check.do?pageNo=' + obj.getAttribute('id'));
 	};
 
-	function goDetailPage(cardNo) {
-		var status = $('#mycard_detail_' + cardNo).attr('title');
+	function goDetailPage(cardNo, cardId) {
 
-		if (status == 'I') {
-			$('#modal_mycard_' + cardNo).attr('title', 'I');
-			$('#modal_mycard_' + cardNo).attr('class', 'fa fa-plus fa-2x');
-		} else {
-			$('#modal_mycard_' + cardNo).attr('title', 'D');
-			$('#modal_mycard_' + cardNo).attr('class', 'fa fa-minus fa-2x');
-		}
+		var id = {
+			'id' : cardId
+		};
+
+		$.ajax({
+			type : "POST",
+			url : "${context}/check/updateViewCnt.do",
+			data : id,
+			dataType : 'json',
+			success : function(id) {
+			},
+			error : function(xhr, status, error) {
+			}
+		});
+
 	};
 
 	function modalMyCard(obj, cardNo) {
@@ -170,8 +177,8 @@
 			$('.click-benefit-info-area').css("color", "#7b7b7b");
 			$('.click-card-info-area').css("color", "#0085a1");
 		});
-		
-		$('#search_option_area_open').click(function(){
+
+		$('#search_option_area_open').click(function() {
 			$('#search_option_area').toggle();
 		})
 	});
@@ -544,8 +551,8 @@
 			</div>
 
 			<div id="search_option_area" style="padding: 0px 5px; display: none;">
-			
-			<div style="height: 15px; clear: both;"></div>
+
+				<div style="height: 15px; clear: both;"></div>
 
 				<div id="select_brand_menu_button"
 					style="width: 100%; text-align: left; font-weight: bold; padding-top: 1%; padding-bottom: 1%; cursor: pointer"
@@ -615,7 +622,7 @@
 				<div id="select_category_menu"
 					style="width: 100%; text-align: center; display: none;">
 					<c:set var="categoryNo" value="0" />
-					<c:set var="menuNo" value="29"/>
+					<c:set var="menuNo" value="29" />
 					<c:forEach items="${selectCheckCategoryList}" var="selectList"
 						varStatus="status">
 						<div class="box">
@@ -646,7 +653,9 @@
 			</div>
 
 			<div style="height: 30px; clear: both;"></div>
-			<div style="width: 100%">총 <b style="color: #0085a1;">${checkTotalCnt }</b> 건 검색</div>
+			<div style="width: 100%">
+				총 <b style="color: #0085a1;">${checkTotalCnt }</b> 건 검색
+			</div>
 			<div style="height: 5px; clear: both;"></div>
 			<hr>
 
@@ -715,7 +724,7 @@
 
 					<div style="display: inline-block; float: right; height: 100%;">
 						<span style="text-align: center;" class="card-detail-button"
-							onclick="goDetailPage('${cardNo}')"> <a
+							onclick="goDetailPage('${cardNo}', '${list.id}')"> <a
 							href="#open${ cardNo }" class="card-detail-button"
 							style="color: #0085a1;">상세 보기</a>
 						</span> <span class="card-homepage-button"
@@ -811,7 +820,7 @@
 												<b><fmt:formatNumber value="${ annualFee.fee }"
 														groupingUsed="true" /></b> &nbsp;원
 											</div>
-											<br/>
+											<br />
 										</c:forEach>
 									</c:when>
 									<c:otherwise>

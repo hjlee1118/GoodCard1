@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.bson.BSONObject;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoExceptionTranslator.MongoDbErrorCodes;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
+import com.mongodb.WriteConcern;
 
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
@@ -543,6 +545,32 @@ public class CheckCardController {
 		} else {
 			return false;
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("check/updateViewCnt.do")
+	public boolean updateViewCnt(String id){
+		
+		System.out.println(id);
+		
+		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+		DB db = mongo.getDB("hana");
+
+		// get a single collection
+		DBCollection collection = db.getCollection("checkCard");
+		
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(id));
+		
+		BasicDBObject incValue = new BasicDBObject("viewCount", 1);
+		BasicDBObject intModifier = new BasicDBObject("$inc", incValue);
+		
+		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
+		
+		System.out.println(collection.findOne(query).get("viewCount"));
+		
+		
+		return true;
 	}
 	
 

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.WriteConcern;
 
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
@@ -553,11 +555,16 @@ public class CreditCardController {
 		// get a single collection
 		DBCollection collection = db.getCollection("creditCard");
 		
-		BasicDBObject newDocument =
-				new BasicDBObject().append("$inc",
-				new BasicDBObject().append("viewCount", 1));
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(id));
 		
-		collection.update(new BasicDBObject().append("_id", id), newDocument);
+		BasicDBObject incValue = new BasicDBObject("viewCount", 1);
+		BasicDBObject intModifier = new BasicDBObject("$inc", incValue);
+		
+		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
+		
+		System.out.println(collection.findOne(query).get("viewCount"));
+		
 		
 		return true;
 	}

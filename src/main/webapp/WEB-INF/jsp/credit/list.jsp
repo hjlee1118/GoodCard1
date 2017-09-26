@@ -72,14 +72,11 @@
 			data:id,
 			dataType:'json',
 			success: function(id){
-				alert('조회수 증가');
 			},
 			error : function(xhr, status, error) {
-				alert('조회수 실패');
 			}
 		});
 		
-		alert(cardId);
 	};
 
 	function modalMyCard(obj, cardNo) {
