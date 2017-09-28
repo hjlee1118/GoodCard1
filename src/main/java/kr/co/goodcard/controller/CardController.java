@@ -1,5 +1,8 @@
 package kr.co.goodcard.controller;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.goodcard.service.CardService;
+import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 
 @Controller
@@ -98,5 +102,6 @@ public class CardController {
 
 		return false;
 	}
+	
 
 }

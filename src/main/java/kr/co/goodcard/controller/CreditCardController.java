@@ -28,6 +28,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
+import kr.co.goodcard.config.MongoConfig;
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
@@ -46,53 +47,49 @@ public class CreditCardController {
 
 	@Autowired
 	CardService cardService;
-	
+
 	@Autowired
 	SearchKeywordService searchKeywordService;
 
-	private static final String[] CREDIT_CARD_LIST = { "하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드", 
-			"현대카드", "우리카드", "농협카드", "기업카드", "씨티카드", "스탠다드차타드카드", "부산은행", "광주은행", "대구은행", 
-			"경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체" };
-	
-	private static String[] COMMUNICATION_LIST = {"휴대폰"};
-	private static String[] RESTAURANT_LIST = {"레스토랑", "뷔페"};
-	private static String[] MART_LIST = {"마트", "코스트코"};
-	private static String[] BEAUTY_LIST = {"뷰티", "화장품", "미용"};
-	private static String[] GASSTATION_LIST = {"주유", "등유", "경유", "LPG", "휘발유"};
-	private static String[] FASTFOOD_LIST = {"피자", "샌드위치", "패스트푸드"};
-	private static String[] SUPERMARKET_LIST ={"슈퍼마켓"};
-	private static String[] BOOKSTORE_LIST = {"서점"};
-	private static String[] MOVIE_LIST = {"영화", "예매"};
-	private static String[] CAFETERIA_LIST = {"식당"};
-	private static String[] ONLINESHOPPING_LIST = {"인터넷","쇼핑", "SPA", "복합", "소셜커머스", "아울렛", "면세점", "백화점", "의류"};
-	private static String[] ACADEMY_LIST = {"교육", "학습"};
-	private static String[] TRANSPORTATION_LIST = {"교통"};
-	private static String[] CAFEBAKERY_LIST = {"카페", "커피", "아이스크림", "베이커리", "도너츠", "음료"};
-	private static String[] CONVENIENCE_LIST = {"편의점", "업종"};
-	private static String[] AMUSEMENTPARK_LIST = {"놀이", "워터파크", "공원", "아쿠아"};
-	private static String[] MEDICAL_LIST = {"병원"};
-	
+	private static final String[] CREDIT_CARD_LIST = { "하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드", "현대카드", "우리카드",
+			"농협카드", "기업카드", "씨티카드", "스탠다드차타드카드", "부산은행", "광주은행", "대구은행", "경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체" };
+
+	private static String[] COMMUNICATION_LIST = { "휴대폰" };
+	private static String[] RESTAURANT_LIST = { "레스토랑", "뷔페" };
+	private static String[] MART_LIST = { "마트", "코스트코" };
+	private static String[] BEAUTY_LIST = { "뷰티", "화장품", "미용" };
+	private static String[] GASSTATION_LIST = { "주유", "등유", "경유", "LPG", "휘발유" };
+	private static String[] FASTFOOD_LIST = { "피자", "샌드위치", "패스트푸드" };
+	private static String[] SUPERMARKET_LIST = { "슈퍼마켓" };
+	private static String[] BOOKSTORE_LIST = { "서점" };
+	private static String[] MOVIE_LIST = { "영화", "예매" };
+	private static String[] CAFETERIA_LIST = { "식당" };
+	private static String[] ONLINESHOPPING_LIST = { "인터넷", "쇼핑", "SPA", "복합", "소셜커머스", "아울렛", "면세점", "백화점", "의류" };
+	private static String[] ACADEMY_LIST = { "교육", "학습" };
+	private static String[] TRANSPORTATION_LIST = { "교통" };
+	private static String[] CAFEBAKERY_LIST = { "카페", "커피", "아이스크림", "베이커리", "도너츠", "음료" };
+	private static String[] CONVENIENCE_LIST = { "편의점", "업종" };
+	private static String[] AMUSEMENTPARK_LIST = { "놀이", "워터파크", "공원", "아쿠아" };
+	private static String[] MEDICAL_LIST = { "병원" };
+
 	private static String[] selectCategoryList = { "통신", "레스토랑", "대형마트", "뷰티/미용", "주유소", "패스트푸드", "슈퍼마켓", "서점", "영화",
 			"식당", "온라인쇼핑", "학원/교육", "대중교통", "카페", "편의점", "놀이공원", "병원" };
-	
-	private static String[] selectCreditCardNameList = {"하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드",
-			"현대카드", "우리카드", "농협카드", "IBK기업은행", "씨티카드", "SC제일은행", "부산은행", "광주은행", "대구은행",
-			"경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체"};
 
-	
-	
+	private static String[] selectCreditCardNameList = { "하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드", "현대카드", "우리카드",
+			"농협카드", "IBK기업은행", "씨티카드", "SC제일은행", "부산은행", "광주은행", "대구은행", "경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체" };
+
 	/**
 	 * 신용카드의 요청을 처리
 	 */
 	@RequestMapping("credit.do")
 	public String creditCardPageTest(@RequestParam("pageNo") int no, Model model, HttpSession session) {
-		
+
 		List<String> creditDataList = (List<String>) session.getAttribute("creditDataList");
 		List<String> creditCategoryList = (List<String>) session.getAttribute("creditCategoryList");
 
 		ArrayList<String> brand = new ArrayList<String>();
 		ArrayList<String> category = new ArrayList<String>();
-		
+
 		if (creditDataList != null && creditDataList.get(20).equals("i")) {
 			for (int i = 0; i <= 19; i++) {
 				if (creditDataList.get(i).equals("a")) {
@@ -203,7 +200,7 @@ public class CreditCardController {
 
 			// 전체 브랜드, 카테고리 별 검색
 			if (category.size() != 0) {
-				for(int i = 0; i<category.size(); i++){
+				for (int i = 0; i < category.size(); i++) {
 					categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(category.get(i))));
 					System.out.println(category.get(i));
 				}
@@ -211,7 +208,7 @@ public class CreditCardController {
 			}
 
 		} else {
-			
+
 			BasicDBObject brandInQuery = new BasicDBObject("$in", brand);
 			// 브랜드별로 검색
 			if (category.size() == 0) {
@@ -220,17 +217,17 @@ public class CreditCardController {
 			// 브랜드별, 카테고리별 검색
 			else {
 				int brandSize = brand.size();
-				for(int i = 0; i < brandSize; i++) {
+				for (int i = 0; i < brandSize; i++) {
 					brandLikeList.add(new BasicDBObject("brand", brand.get(i)));
 				}
 				BasicDBObject brandOR = new BasicDBObject("$or", brandLikeList);
-				
+
 				int categorySize = category.size();
-				for(int i = 0; i < categorySize; i++) {
+				for (int i = 0; i < categorySize; i++) {
 					categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(category.get(i))));
 				}
 				BasicDBObject categoryOR = new BasicDBObject("$or", categoryLikeList);
-				
+
 				BasicDBList finalQuery = new BasicDBList();
 				finalQuery.add(brandOR);
 				finalQuery.add(categoryOR);
@@ -246,21 +243,21 @@ public class CreditCardController {
 		} else {
 			creditTotalPageCnt = creditTotalCnt / 10 + 1;
 		}
-		creditCardList = cardList(searchQuery, no);
-			
+		creditCardList = cardList(searchQuery, no, 10);
+
 		model.addAttribute("creditCardList", creditCardList);
 		model.addAttribute("creditTotalCnt", creditTotalCnt);
 		model.addAttribute("creditTotalPageCnt", creditTotalPageCnt);
 		model.addAttribute("creditDataList", creditDataList);
-		
+
 		model.addAttribute("creditCardNameList", selectCreditCardNameList);
 		model.addAttribute("selectCheckCategoryList", selectCategoryList);
 
 		return "credit/list";
 	}
-	
+
 	public static int creditCardCnt(BasicDBObject searchQuery) {
-		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
 		DBCollection collection = db.getCollection("creditCard");
@@ -274,11 +271,10 @@ public class CreditCardController {
 		}
 		return count;
 	}
-	
 
-	public static List<CreditCard> cardList(BasicDBObject searchQuery, int pageNo) {
+	public static List<CreditCard> cardList(BasicDBObject searchQuery, int pageNo, int max) {
 		try {
-			MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+			MongoClient mongo = MongoConfig.mongo();
 			DB db = mongo.getDB("hana");
 
 			// get a single collection
@@ -288,9 +284,9 @@ public class CreditCardController {
 			DBCursor cursor;
 
 			if (searchQuery != null && searchQuery.size() != 0) {
-				cursor = collection.find(searchQuery).skip(skipPage).limit(10);
+				cursor = collection.find(searchQuery).skip(skipPage).limit(max);
 			} else {
-				cursor = collection.find().skip(skipPage).limit(10);
+				cursor = collection.find().skip(skipPage).limit(max);
 			}
 
 			List<CreditCard> list = new ArrayList<>();
@@ -423,6 +419,11 @@ public class CreditCardController {
 					List<Benefits> benefitss = new ArrayList<Benefits>();
 					BasicDBList benefitsList = (BasicDBList) cardDBObject.get("benefits");
 
+					/*
+					 * System.out.println("benefitsList : " +
+					 * benefitsList.size());
+					 */
+
 					for (int i = 0; i < benefitsList.size(); i++) {
 
 						BasicDBObject benefitsObj = (BasicDBObject) benefitsList.get(i);
@@ -435,13 +436,37 @@ public class CreditCardController {
 							Benefits benefits = new Benefits();
 							benefits.setCategory(benefitsCategory);
 
+							
+							 for (Object b : brandListList) {
+								 System.out.print(b); 
+							 }
+							 
+							 System.out.println();
+							
+
 							for (int j = 0; j < brandListList.size(); j++) {
 								BasicDBObject brandListObj = (BasicDBObject) brandListList.get(j);
 								String brand = brandListObj.getString("brand");
 								String benefitBenefit = brandListObj.getString("benefit");
-								int benefitPrevperformance = brandListObj.getInt("prevPerformance");
-								String constraint = brandListObj.getString("constraint").replaceAll("\n", "");
-								constraint = constraint.replaceAll("\r", "");
+								int benefitPrevperformance = 0;
+
+								try {
+									if (brandListObj.getInt("prevPerformance") != 0) {
+										benefitPrevperformance = brandListObj.getInt("prevPerformance");
+									}
+								} catch (Exception e) {
+
+								}
+								String constraint = "";
+								try {
+									if (brandListObj.getString("constraint") != null) {
+
+										constraint = brandListObj.getString("constraint").replaceAll("\n", "");
+										constraint = constraint.replaceAll("\r", "");
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
 
 								BrandList brandList = new BrandList();
 								brandList.setBrand(brand);
@@ -465,7 +490,7 @@ public class CreditCardController {
 				} catch (Exception e) {
 				}
 
-				creditCard.setHomepageURL("https://www.hanacard.co.kr/");
+				creditCard.setHomepageURL("https://www.testcard.co.kr/");
 
 				list.add(creditCard);
 			}
@@ -481,7 +506,7 @@ public class CreditCardController {
 		return null;
 
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "searchCreditQueryBrand.do")
 	public boolean searchCreditQueryBrand(@RequestBody List<String> list, HttpSession session, Model model) {
@@ -489,8 +514,8 @@ public class CreditCardController {
 		// System.out.println("searchQueryBrand 실행");
 
 		if (list != null && list.size() > 0) {
-			
-			Member member = (Member)session.getAttribute("loginUser");
+
+			Member member = (Member) session.getAttribute("loginUser");
 			List<String> creditDataList = new ArrayList<String>();
 			List<String> creditCategoryList = new ArrayList<String>();
 			List<String> searchKeywordList = new ArrayList<String>();
@@ -512,20 +537,20 @@ public class CreditCardController {
 				searchKeywordList.add(list.get(i));
 				creditCategoryList.add(list.get(i));
 			}
-			
-			if(member != null){
+
+			if (member != null) {
 				Date date = new Date(member.getBirthDate().getTime());
-				
-				int birthYear = date.getYear()+1900;
-				int birthMonth = date.getMonth()+1;
+
+				int birthYear = date.getYear() + 1900;
+				int birthMonth = date.getMonth() + 1;
 				int birthDay = date.getDate();
 
 				int age = AgeUtils.getAge(birthYear, birthMonth, birthDay);
-				
+
 				boolean b = searchKeywordService.insertSearchKeyword(list, age, "credit");
 				System.out.println("credit search keyword : " + b);
 			}
-			
+
 			if (creditCnt > 0) {
 				session.setAttribute("creditDataList", creditDataList);
 			} else {
@@ -542,30 +567,29 @@ public class CreditCardController {
 			return false;
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("credit/updateViewCnt.do")
-	public boolean updateViewCnt(String id){
-		
+	public boolean updateViewCnt(String id) {
+
 		System.out.println(id);
-		
-		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+
+		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
 		// get a single collection
 		DBCollection collection = db.getCollection("creditCard");
-		
+
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", new ObjectId(id));
-		
+
 		BasicDBObject incValue = new BasicDBObject("viewCount", 1);
 		BasicDBObject intModifier = new BasicDBObject("$inc", incValue);
-		
+
 		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
-		
+
 		System.out.println(collection.findOne(query).get("viewCount"));
-		
-		
+
 		return true;
 	}
 

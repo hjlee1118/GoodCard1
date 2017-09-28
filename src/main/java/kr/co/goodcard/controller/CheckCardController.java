@@ -8,34 +8,28 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
-import org.bson.BSONObject;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoExceptionTranslator.MongoDbErrorCodes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Basic;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
+import kr.co.goodcard.config.MongoConfig;
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
 import kr.co.goodcard.vo.CheckCard;
-import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 import kr.co.goodcard.vo.mongo.AnnualFee;
 import kr.co.goodcard.vo.mongo.Benefits;
@@ -264,7 +258,8 @@ public class CheckCardController {
 	}
 
 	public static int checkCardCnt(BasicDBObject searchQuery) {
-		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+		
+		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
 		DBCollection collection = db.getCollection("checkCard");
@@ -281,7 +276,7 @@ public class CheckCardController {
 
 	public static List<CheckCard> checkCardList(BasicDBObject searchQuery, int pageNo) {
 		try {
-			MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+			MongoClient mongo = MongoConfig.mongo();
 			DB db = mongo.getDB("hana");
 
 			// get a single collection
@@ -553,7 +548,7 @@ public class CheckCardController {
 		
 		System.out.println(id);
 		
-		MongoClient mongo = new MongoClient("13.125.7.180", 27017);
+		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
 		// get a single collection

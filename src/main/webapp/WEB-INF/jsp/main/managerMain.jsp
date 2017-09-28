@@ -10,10 +10,190 @@
 <c:set var="context" value="${pageContext.request.contextPath }" />
 <script src="${context}/resources/custom/js/jquery-3.2.1.js"></script>
 <script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script>
-<script type='text/javascript'
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
 <script type="text/javascript">
+	$(function() {
+
+		$('#search_button')
+				.click(
+						function() {
+							var array = [];
+							var index = 0;
+							var i = 20;
+							var age = 0;
+
+							var gender = -1;
+
+							while (i <= 50) {
+								var test_id = '#ageGroup_' + i;
+								if ($(test_id).attr('class') == 'selected') {
+									age = i;
+									array[index] = age;
+									index++;
+									break;
+								}
+								i = i + 10;
+							}
+
+							if (age == 0) {
+								alert('나이를 입력해주세요.');
+								return;
+							}
+
+							if ($('#gender_both').attr('class') == 'selected') {
+								gender = 0;
+							}
+							if ($('#gender_men').attr('class') == 'selected') {
+								gender = 1;
+							}
+							if ($('#gender_women').attr('class') == 'selected') {
+								gender = 2;
+							}
+
+							if (gender == -1) {
+								alert('성별을 선택하세요.');
+								return;
+							} else {
+								array[index] = gender;
+								index++;
+							}
+
+							var cnt = 0;
+
+							for (var i = 0; i <= 16; i++) {
+								var checked_id = '#' + i;
+								var checked_class = $(checked_id).attr('class');
+								if (checked_class == 'selected') {
+									array[index] = i;
+									index++;
+									cnt++;
+								}
+							}
+
+							if (cnt == 0) {
+								alert('혜택을 입력해주세요.');
+							}
+
+							$.ajax({
+									type : "POST",
+									url : "${context}/getBestCardByCondition.do",
+									data : {
+										myArray : array
+									},
+									success : function(creditCardList) {
+
+										$('#searchResultArea').empty();
+
+										if (creditCardList.length == 0) {
+											$('#searchResultArea').append('<div style="height: 286px; clear: both;"></div>');
+												$('#searchResultArea').append('<div style="text-align: center; color: #7b7b7b;">유사 카드가 존재하지 않습니다.</div>');
+										}
+										
+										else {
+											var str = '';
+											$.each(creditCardList, function(i, v) {
+												var brand = v.brand;
+												var imagePath = '/GoodCard/resources/cardImage/'+ v.imagePath;
+												var cardName = v.cardName;
+												var annotation = v.annotation;
+												
+												str += '<div style="height: 0px; clear: both;"></div><div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;"><div style="height: 100%; float: left; padding: 5%; display: inline-block;"><b style="font-size: 20pt; color: #0085a1;">'+(i+1)+'</b></div>';
+												str += '<div style="margin: 3% 0px; height: 100px; width:200px; display: inline-block; background-size: contain; background-repeat: no-repeat; background:url("';
+												str += '"13.124.121.245/img/"'+v.imagePath;
+												str += '")"></div>';
+												str += '<div style="display: inline-block; height: 100%; padding-top: 3%; padding-left:2.4%; float: left; width: 50%;">'+brand;
+												str += '<div style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">';
+												str += '<b>'+cardName+'</b>';
+												str += '</div>'+annotation+'</div><div style="display: inline-block; float: right; margin: 3%"><span style="text-align: center;" class="card-detail-button"><a href="#open" class="card-detail-button" style="color: #0085a1;">상세 보기</a></span><span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span></div></div>';
+
+												});
+											
+												$('#searchResultArea').append(str);
+												console.log(str);
+												/* $('#searchResultArea').append('<c:forEach items="${cardList}" var="list" varStatus="status">');
+												$('#searchResultArea').append('${list.cardName}'); 
+												$('#searchResultArea').append('<br/>'); 
+												$('#searchResultArea').append('</c:forEach>'); */
+											}
+
+										},
+										error : function(xhr, status, error) {
+										}
+									});
+
+						});
+
+	});
+	function checkedAge(id) {
+		var inputId = '#' + id.getAttribute('id');
+		var class_name = $(id).attr('class');
+
+		if (class_name == 'selected') {
+			$(id).attr('class', 'not-selected');
+		} else {
+			$(id).attr('class', 'selected');
+			var i = 20;
+			while (i <= 50) {
+				var test_id = '#ageGroup_' + i;
+				if (test_id != inputId) {
+					$(test_id).attr('class', 'not-selected');
+				}
+				i = i + 10;
+			}
+
+		}
+	}
+
+	function checkedGender(id) {
+		var inputId = '#' + id.getAttribute('id');
+		var class_name = $(id).attr('class');
+
+		if (class_name == 'selected') {
+			$(id).attr('class', 'not-selected');
+		} else {
+			$(id).attr('class', 'selected');
+
+			if (inputId != '#gender_both') {
+				$('#gender_both').attr('class', 'not-selected');
+			}
+
+			if (inputId != '#gender_men') {
+				$('#gender_men').attr('class', 'not-selected');
+			}
+
+			if (inputId != '#gender_women') {
+				$('#gender_women').attr('class', 'not-selected');
+			}
+		}
+	}
+
+	function checkedToggle(id) {
+		var icon_id = '#checked_' + id;
+		var class_name = $(icon_id).attr('class');
+		id = '#' + id;
+		if (class_name == 'fa fa-square') {
+
+			var cnt = 0;
+
+			for (var i = 0; i <= 16; i++) {
+				var checked_id = '#' + i;
+				var checked_class = $(checked_id).attr('class');
+				if (checked_class == 'selected') {
+					cnt++;
+				}
+			}
+			if (cnt < 3) {
+				$(icon_id).attr('class', 'fa fa-check-square');
+				$(id).attr('class', 'selected');
+			} else {
+				alert('최대 3개까지 선택 가능합니다.');
+			}
+		} else {
+			$(icon_id).attr('class', 'fa fa-square');
+			$(id).attr('class', 'not-selected');
+		}
+	}
+
 	function minusAge() {
 		var value = parseInt(document.getElementById('ageGroup0').innerHTML) - 10;
 
@@ -103,7 +283,7 @@
 		$('body, html').css('scrollTop', $(target_id).offset().top);
 		$('body, html').animate({
 			scrollTop : $(target_id).offset().top
-		}, 500);
+		}, 1000);
 		window.scrollTo(0, $(target_id).offset().top);
 
 	}
@@ -150,6 +330,8 @@
 				});
 	}
 </script>
+<link href="${context}/resources/custom/css/creditList.css?ver=4"
+	rel="stylesheet">
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -265,6 +447,70 @@ span.selectOption {
 span.selectOption:hover {
 	color: #f6f6f6;
 	background: #4096ee;
+}
+
+div.not-selected {
+	width: 24%;
+	padding: 2% 0px;
+	border-radius: 2em;
+	border: 1px solid #42918a;
+	background:;
+	display: inline-block;
+	margin-bottom: 3%;
+	color: white;
+	cursor: pointer;
+}
+
+div.selected {
+	border: 1px solid #42918a;
+	width: 24%;
+	padding: 2% 0px;
+	border-radius: 2em;
+	background: #42918a;
+	display: inline-block;
+	margin-bottom: 3%;
+	color: white;
+	cursor: pointer;
+}
+
+div.not-selected:hover {
+	background: #42918a;
+	color: white;
+	font-weight: bold;
+	text-decoration: underline !important;
+}
+
+div.selected:hover {
+	background: #42918a;
+	color: white;
+	font-weight: bold;
+	text-decoration: underline !important;
+}
+
+div.not-selected:active {
+	background: #42918a;
+	color: white;
+	font-weight: bold;
+	text-decoration: underline !important;
+}
+
+div.selected:active {
+	background: #42918a;
+	color: white;
+	font-weight: bold;
+	text-decoration: underline !important;
+}
+
+#search_button {
+	cursor: pointer;
+	width: 50%;
+	margin: 0px 25%;
+	border: 1px solid white;
+	text-align: center;
+	border-radius: 1em;
+	padding: 0.3% 0px;
+	color: #80C5BF;
+	background: white;
 }
 </style>
 <c:set var="context" value="${pageContext.request.contextPath }" />
@@ -557,33 +803,90 @@ span.selectOption:hover {
 							<div style="height: 50px; clear: both;"></div>
 
 							<div
-								style="width: 50%; margin: 0px 25%; border: 1px solid white; text-align: center; border-radius: 1em; padding: 0.3% 0px; color: white;">
-								연령을 선택하세요
-								<div
-									style="float: right; color: white; padding-right: 5%; padding-top: 1%">
-									<i id="selectAgeGroup" class="fa fa-chevron-down click"
-										aria-hidden="true"></i>
+								style="width: 50%; padding-left: 1%; margin: 0px 25%; border-bottom: 1px solid white; text-align: left; padding: 0.3% 0px; color: white;">
+								<span style="padding-left: 5%;">연령을 선택하세요</span>
+							</div>
+
+							<div style="height: 10px; clear: both;"></div>
+							<div
+								style="width: 50%; padding-left: 1%; margin: 0px 25%; text-align: left; padding: 0px 0.8%; color: white; font-size: 11pt;">*
+								연령대는 1개만 선택 가능합니다.</div>
+							<div style="height: 10px; clear: both;"></div>
+							<div
+								style="width: 50%; height: auto; margin: 0px 25%; padding: 0.3% 0px; /*  background: #42918A;  */ color: white; font-size: 12pt;">
+								<c:forEach var="age" begin="20" end="50" step="10"
+									varStatus="status">
+									<div id="ageGroup_${status.index}" class="not-selected"
+										onclick="checkedAge(this)">
+										<div
+											style="width: 100%; left; display: inline-block; text-align: center;">${age}
+											대</div>
+									</div>
+								</c:forEach>
+							</div>
+
+
+							<div style="height: 20px; clear: both;"></div>
+
+							<div
+								style="width: 50%; padding-left: 1%; margin: 0px 25%; border-bottom: 1px solid white; text-align: left; padding: 0.3% 0px; color: white;">
+								<span style="padding-left: 5%;">성별을 선택하세요</span>
+							</div>
+
+							<div style="height: 10px; clear: both;"></div>
+							<div
+								style="width: 50%; height: auto; margin: 0px 25%; padding: 0.3% 0px; /*  background: #42918A;  */ color: white; font-size: 12pt;">
+								<div id="gender_both" class="not-selected"
+									onclick="checkedGender(this)">
+									<div
+										style="width: 100%; left; display: inline-block; text-align: center;">전체</div>
+								</div>
+								<div id="gender_men" class="not-selected"
+									onclick="checkedGender(this)">
+									<div
+										style="width: 100%; left; display: inline-block; text-align: center;">남자</div>
+								</div>
+								<div id="gender_women" class="not-selected"
+									onclick="checkedGender(this)">
+									<div
+										style="width: 100%; left; display: inline-block; text-align: center;">여자</div>
 								</div>
 							</div>
 
-							<div style="height: 30px; clear: both;"></div>
 
-							<!-- <div
-								style="width: 50%; margin: 0px 25%; border: 1px solid white; text-align: center; border-radius: 1em; padding: 0.3% 0px; color: white;">
-								혜택을 선택하세요
-								<div
-									style="float: right; color: white; padding-right: 5%; padding-top: 1%">
-									<i id="selectBenefitGroup" class="fa fa-chevron-down click"
-										aria-hidden="true"></i>
-								</div>
-							</div> -->
-
-
-
-							<div style="height: 30px; clear: both;"></div>
+							<div style="height: 20px; clear: both;"></div>
 
 							<div
-								style="cursor: pointer; width: 50%; margin: 0px 25%; border: 1px solid white; text-align: center; border-radius: 1em; padding: 0.3% 0px; color: #80C5BF; background: white;">
+								style="width: 50%; padding-left: 1%; margin: 0px 25%; border-bottom: 1px solid white; text-align: left; padding: 0.3% 0px; color: white;">
+								<span style="padding-left: 5%;">혜택을 선택하세요</span>
+							</div>
+
+
+							<div style="height: 10px; clear: both;"></div>
+							<div
+								style="width: 50%; padding-left: 1%; margin: 0px 25%; text-align: left; padding: 0px 0.8%; color: white; font-size: 11pt;">*
+								혜택은 최대 3개 선택 가능합니다.</div>
+							<div style="height: 10px; clear: both;"></div>
+
+							<div
+								style="width: 50%; height: auto; margin: 0px 25%; padding: 0.3% 0px; /*  background: #42918A;  */ color: white; font-size: 12pt;">
+								<c:forEach items="${ selectBenefitList }" var="list"
+									varStatus="status">
+									<div id="${status.index}" class="not-selected"
+										onclick="checkedToggle('${status.index}')">
+										<div
+											style="width: 30%; float: left; display: inline-block; padding-top: 1%; padding-left: 10%;">
+											<i id="checked_${status.index}" class="fa fa-square"
+												aria-hidden="true" checked="" style="cursor: pointer;"></i>
+										</div>
+										<div style="width: 70%; left; display: inline-block;">${list}</div>
+									</div>
+								</c:forEach>
+							</div>
+
+							<div style="height: 20px; clear: both;"></div>
+
+							<div id="search_button">
 								검색
 								<div
 									style="float: right; color: #80C5BF; padding-right: 5%; padding-top: 1%">
@@ -593,42 +896,82 @@ span.selectOption:hover {
 
 							<div style="height: 50px; clear: both;"></div>
 
-							<div style="width: 100%; min-height: 712px; background: #F6F8FC;">
-								<c:choose>
-									<c:when test="${ not empty benefitCardList }">
+							<div id="searchResultArea"
+								style="width: 100%; min-height: 712px; background: #F6F8FC; font-size: 12pt;">
 
-									</c:when>
-									<c:otherwise>
-										<div style="height: 286px; clear: both;"></div>
-										<div style="text-align: center; color: #7b7b7b;">유사 카드가
-											존재하지 않습니다.</div>
-									</c:otherwise>
-								</c:choose>
+								
+							<div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;">
+									<div style="height: 100%; float: left; padding: 5%;">
+										<b
+											style="font-size: 20pt; color: #0085a1; font-family: 'Nanum Gothic', serif;">1</b>
+									</div>
+
+									<div class="card-image-area"
+										style="margin: 3% 0px; height: 100px; width:200px; background: url('${context}/resources/cardImage/1.png'); background-size: contain;	background-repeat: no-repeat;">
+									</div>
+
+									<div
+										style="display: inline-block; height: 100%; padding-top: 3%; padding-left:2.4%; float: left; width: 50%;">
+										신한카드
+										<div
+											style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">
+											<b>신한 S-choice 카드</b>
+										</div>
+									</div>
+
+									<div style="display: inline-block; float: right; height: 100%; margin: 3%">
+										<span style="text-align: center;" class="card-detail-button">
+										<a href="#open" class="card-detail-button" style="color: #0085a1;">상세 보기</a>
+										</span>
+										<span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span>
+
+									</div>
+								</div>
+								<div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;">
+									<div style="height: 100%; float: left; padding: 5%;">
+										<b
+											style="font-size: 20pt; color: #0085a1; font-family: 'Nanum Gothic', serif;">1</b>
+									</div>
+
+									<div class="card-image-area"
+										style="margin: 3% 0px; height: 100px; width:200px; background: url('${context}/resources/cardImage/1.png'); background-size: contain;	background-repeat: no-repeat;">
+									</div>
+
+									<div
+										style="display: inline-block; height: 100%; padding-top: 3%; padding-left:2.4%; float: left; width: 50%;">
+										신한카드
+										<div
+											style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">
+											<b>신한 S-choice 카드</b>
+										</div>
+									</div>
+
+									<div style="display: inline-block; float: right; height: 100%; margin: 3%">
+										<span style="text-align: center;" class="card-detail-button">
+										<a href="#open" class="card-detail-button" style="color: #0085a1;">상세 보기</a>
+										</span>
+										<span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span>
+
+									</div>
+								</div>
+								
+
 							</div>
-
-							<div style="height: 60px; clear: both;"></div>
 						</div>
 
+						<div style="height: 60px; clear: both;"></div>
 					</div>
-				</div>
 
-			</div>
-
-			<div class='selectBox'>
-				<span class='selected'></span> <span class='selectArrow'>&#9660</span>
-				<div class="selectOptions">
-					<span class="selectOption" value="Option 1">Option 1</span> <span
-						class="selectOption" value="Option 2">Option 2</span> <span
-						class="selectOption" value="Option 3">Option 3</span>
 				</div>
 			</div>
-			<div style="width: 100%; height: 168px;">
-				<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" /></div>
+
 		</div>
-	</div>
-	<div style="height: 0px; clear: both;"></div>
 
 
-
+		<%-- <div style="height: 0px; clear: both;"></div>
+		<div style="width: 100%; height: 168px;">
+			<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" /></div>
+		</div>
+	<div style="height: 0px; clear: both;"></div> --%>
 </body>
 </html>

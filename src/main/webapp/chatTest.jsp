@@ -39,7 +39,7 @@
 			            directLine: {
 			                token: "mojUuY88eAc.cwA.6Gk.Uncul7vKodOrA7n7TfgeVu9mWCGiDIQzjxllGeH7PTM"
 			            },
-			            user: { id: 'LEEHJ' }, //사용자 Session id 넣기
+			            user: { id: 'hjlee1118' }, //사용자 Session id 넣기
 			            bot: { id: 'card_recommend_bot' },
 			        }, document.getElementById("bot"));
 			    </script>

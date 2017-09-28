@@ -772,7 +772,7 @@
 							<div class="info-padding"
 								style="font-size: 15pt; font-weight: bold;">
 								${list.cardName}</div>
-							<div style="color: #0085a1; margin-top: 1%; text-align: left;">
+							<div style="color: #0085a1; margin-top: 1%; text-align: left; width: 500px;">
 								" ${list.annotation} "</div>
 						</div>
 						<div class="card-summarized-button"

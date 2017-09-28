@@ -37,5 +37,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="setup/json-20140107.jar"/>
 	<classpathentry kind="lib" path="setup/jar/mongo-java-driver-3.2.2.jar"/>
+	<classpathentry kind="lib" path="setup/jar/javax.servlet-api-4.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

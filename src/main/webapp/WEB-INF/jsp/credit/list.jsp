@@ -56,27 +56,27 @@
 	};
 
 	function goPage(obj) {
-		location
-				.replace('${context}/credit.do?pageNo=' + obj.getAttribute('id'));
+		location.replace('${context}/credit.do?pageNo='
+				+ obj.getAttribute('id'));
 	};
 
 	function goDetailPage(cardNo, cardId) {
-		
+
 		var id = {
 			'id' : cardId
 		};
-		
+
 		$.ajax({
-			type:"POST",
-			url:"${context}/credit/updateViewCnt.do",
-			data:id,
-			dataType:'json',
-			success: function(id){
+			type : "POST",
+			url : "${context}/credit/updateViewCnt.do",
+			data : id,
+			dataType : 'json',
+			success : function(id) {
 			},
 			error : function(xhr, status, error) {
 			}
 		});
-		
+
 	};
 
 	function modalMyCard(obj, cardNo) {
@@ -177,8 +177,8 @@
 			$('.click-benefit-info-area').css("color", "#7b7b7b");
 			$('.click-card-info-area').css("color", "#0085a1");
 		});
-		
-		$('#search_option_area_open').click(function(){
+
+		$('#search_option_area_open').click(function() {
 			$('#search_option_area').toggle();
 		})
 	});
@@ -551,8 +551,8 @@
 			</div>
 
 			<div id="search_option_area" style="padding: 0px 5px; display: none;">
-			
-			<div style="height: 15px; clear: both;"></div>
+
+				<div style="height: 15px; clear: both;"></div>
 
 				<div id="select_brand_menu_button"
 					style="width: 100%; text-align: left; font-weight: bold; padding-top: 1%; padding-bottom: 1%; cursor: pointer"
@@ -622,7 +622,7 @@
 				<div id="select_category_menu"
 					style="width: 100%; text-align: center; display: none;">
 					<c:set var="categoryNo" value="0" />
-					<c:set var="menuNo" value="21"/>
+					<c:set var="menuNo" value="21" />
 					<c:forEach items="${selectCheckCategoryList}" var="selectList"
 						varStatus="status">
 						<div class="box">
@@ -651,11 +651,13 @@
 					style="width: 100%; margin-right: 5%; margin-left: 5%; color: red; float: right; text-align: right; padding-top: 1%;">
 					* 검색하기 버튼을 누르시면 조건에 맞는 카드가 조회됩니다.</div>
 			</div>
-			
+
 			<div style="height: 30px; clear: both;"></div>
-			<div style="width: 100%">총 <b style="color: #0085a1;">${creditTotalCnt }</b> 건 검색</div>
+			<div style="width: 100%">
+				총 <b style="color: #0085a1;">${creditTotalCnt }</b> 건 검색
+			</div>
 			<div style="height: 5px; clear: both;"></div>
-			
+
 			<hr>
 
 			<div style="width: 100%;">
@@ -771,7 +773,8 @@
 							<div class="info-padding"
 								style="font-size: 15pt; font-weight: bold;">
 								${list.cardName}</div>
-							<div style="color: #0085a1; margin-top: 1%; text-align: left;">
+							<div
+								style="color: #0085a1; margin-top: 1%; text-align: left; width: 500px;">
 								" ${list.annotation} "</div>
 						</div>
 						<div class="card-summarized-button"
@@ -819,7 +822,7 @@
 												<b><fmt:formatNumber value="${ annualFee.fee }"
 														groupingUsed="true" /></b> &nbsp;원
 											</div>
-											<br/>
+											<br />
 										</c:forEach>
 									</c:when>
 									<c:otherwise>
@@ -839,12 +842,21 @@
 									<c:when test="${ not empty list.limitBenefit }">
 										<c:forEach items="${ list.limitBenefit }" var="limitBenefit"
 											varStatus="status">
-											<div
-												style="display: inline-block; margin-right: 3%; width: 50%;">
-												지난 달 카드&nbsp; <strong><fmt:formatNumber
-														value="${ limitBenefit.prevPerformance }"
-														groupingUsed="true" /></strong>&nbsp;원 사용 시
-											</div>
+											<c:choose>
+												<c:when test="${ limitBenefit.prevPerformance eq 0 }">
+												</c:when>
+												<c:otherwise>
+
+													<div
+														style="display: inline-block; margin-right: 3%; width: 50%;">
+														지난 달 카드&nbsp; <strong><fmt:formatNumber
+																value="${ limitBenefit.prevPerformance }"
+																groupingUsed="true" /></strong>&nbsp;원 사용 시
+													</div>
+												</c:otherwise>
+											</c:choose>
+
+
 											<div style="display: inline-block;">
 												<strong><fmt:formatNumber
 														value="${ limitBenefit.maxBenefit }" groupingUsed="true" /></strong>&nbsp;원
@@ -902,10 +914,17 @@
 										<div style="color: black; font-weight: bold;">${brandList.brand}&nbsp;에서&nbsp;${ brandList.benefit }</div>
 										<div
 											style="color: #7b7b7b; font-size: 10pt; font-weight: bold;">
-											지난 달 카드&nbsp;
-											<fmt:formatNumber value="${ brandList.prevPerformance  }"
-												groupingUsed="true" />
-											원 이상 사용 시
+											<c:choose>
+												<c:when test="${ brandList.prevPerformance eq 0 }">
+													전월 실적 없음
+												</c:when>
+												<c:otherwise>
+												지난 달 카드&nbsp;<fmt:formatNumber
+														value="${ brandList.prevPerformance  }"
+														groupingUsed="true" />원 이상 사용 시
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 										<div style="color: #7b7b7b; font-size: 10pt;">${brandList.constraint }</div>
 									</div>
