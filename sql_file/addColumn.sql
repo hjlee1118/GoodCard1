@@ -16,3 +16,14 @@ sum(SUPERMARKET) as superMarket, sum(BOOKSTORE) as bookstore, sum(MOVIE) as movi
 sum(CAFE) as cafe, sum(CONVENIENCE) as convenience, sum(AMUSEMENTPARK) as amusementPark, sum(MEDICAL) as medical
 from SEARCH_KEYWORD 
 where card_type='credit' and age between 20 and 29;
+
+
+select * from MEMBER where id = 'hjlee1118';
+
+
+update MEMBER
+set CARD1 = NULL, CARD2 = NULL, CARD3 = NULL
+where id = 'hjlee1118';
+
+commit;
+

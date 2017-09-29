@@ -32,6 +32,7 @@ import kr.co.goodcard.config.MongoConfig;
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
+import kr.co.goodcard.util.Util;
 import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 import kr.co.goodcard.vo.mongo.AnnualFee;
@@ -53,28 +54,8 @@ public class CreditCardController {
 
 	private static final String[] CREDIT_CARD_LIST = { "하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드", "현대카드", "우리카드",
 			"농협카드", "기업카드", "씨티카드", "스탠다드차타드카드", "부산은행", "광주은행", "대구은행", "경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체" };
-
-	private static String[] COMMUNICATION_LIST = { "휴대폰" };
-	private static String[] RESTAURANT_LIST = { "레스토랑", "뷔페" };
-	private static String[] MART_LIST = { "마트", "코스트코" };
-	private static String[] BEAUTY_LIST = { "뷰티", "화장품", "미용" };
-	private static String[] GASSTATION_LIST = { "주유", "등유", "경유", "LPG", "휘발유" };
-	private static String[] FASTFOOD_LIST = { "피자", "샌드위치", "패스트푸드" };
-	private static String[] SUPERMARKET_LIST = { "슈퍼마켓" };
-	private static String[] BOOKSTORE_LIST = { "서점" };
-	private static String[] MOVIE_LIST = { "영화", "예매" };
-	private static String[] CAFETERIA_LIST = { "식당" };
-	private static String[] ONLINESHOPPING_LIST = { "인터넷", "쇼핑", "SPA", "복합", "소셜커머스", "아울렛", "면세점", "백화점", "의류" };
-	private static String[] ACADEMY_LIST = { "교육", "학습" };
-	private static String[] TRANSPORTATION_LIST = { "교통" };
-	private static String[] CAFEBAKERY_LIST = { "카페", "커피", "아이스크림", "베이커리", "도너츠", "음료" };
-	private static String[] CONVENIENCE_LIST = { "편의점", "업종" };
-	private static String[] AMUSEMENTPARK_LIST = { "놀이", "워터파크", "공원", "아쿠아" };
-	private static String[] MEDICAL_LIST = { "병원" };
-
 	private static String[] selectCategoryList = { "통신", "레스토랑", "대형마트", "뷰티/미용", "주유소", "패스트푸드", "슈퍼마켓", "서점", "영화",
 			"식당", "온라인쇼핑", "학원/교육", "대중교통", "카페", "편의점", "놀이공원", "병원" };
-
 	private static String[] selectCreditCardNameList = { "하나카드", "국민카드", "신한카드", "비씨카드", "삼성카드", "롯데카드", "현대카드", "우리카드",
 			"농협카드", "IBK기업은행", "씨티카드", "SC제일은행", "부산은행", "광주은행", "대구은행", "경남은행", "전북은행", "제주은행", "수협은행", "기타카드", "전체" };
 
@@ -88,7 +69,6 @@ public class CreditCardController {
 		List<String> creditCategoryList = (List<String>) session.getAttribute("creditCategoryList");
 
 		ArrayList<String> brand = new ArrayList<String>();
-		ArrayList<String> category = new ArrayList<String>();
 
 		if (creditDataList != null && creditDataList.get(20).equals("i")) {
 			for (int i = 0; i <= 19; i++) {
@@ -98,95 +78,7 @@ public class CreditCardController {
 			}
 		}
 
-		if (creditCategoryList != null) {
-			if (creditCategoryList.get(0).equals("a")) {
-				for (int i = 0; i < COMMUNICATION_LIST.length; i++) {
-					category.add(COMMUNICATION_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(1).equals("a")) {
-				for (int i = 0; i < RESTAURANT_LIST.length; i++) {
-					category.add(RESTAURANT_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(2).equals("a")) {
-				for (int i = 0; i < MART_LIST.length; i++) {
-					category.add(MART_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(3).equals("a")) {
-				for (int i = 0; i < BEAUTY_LIST.length; i++) {
-					category.add(BEAUTY_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(4).equals("a")) {
-				for (int i = 0; i < GASSTATION_LIST.length; i++) {
-					category.add(GASSTATION_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(5).equals("a")) {
-				for (int i = 0; i < FASTFOOD_LIST.length; i++) {
-					category.add(FASTFOOD_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(6).equals("a")) {
-				for (int i = 0; i < SUPERMARKET_LIST.length; i++) {
-					category.add(SUPERMARKET_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(7).equals("a")) {
-				for (int i = 0; i < BOOKSTORE_LIST.length; i++) {
-					category.add(BOOKSTORE_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(8).equals("a")) {
-				for (int i = 0; i < MOVIE_LIST.length; i++) {
-					category.add(MOVIE_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(9).equals("a")) {
-				for (int i = 0; i < CAFETERIA_LIST.length; i++) {
-					category.add(CAFETERIA_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(10).equals("a")) {
-				for (int i = 0; i < ONLINESHOPPING_LIST.length; i++) {
-					category.add(ONLINESHOPPING_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(11).equals("a")) {
-				for (int i = 0; i < ACADEMY_LIST.length; i++) {
-					category.add(ACADEMY_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(12).equals("a")) {
-				for (int i = 0; i < TRANSPORTATION_LIST.length; i++) {
-					category.add(TRANSPORTATION_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(13).equals("a")) {
-				for (int i = 0; i < CAFEBAKERY_LIST.length; i++) {
-					category.add(CAFEBAKERY_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(14).equals("a")) {
-				for (int i = 0; i < CONVENIENCE_LIST.length; i++) {
-					category.add(CONVENIENCE_LIST[i]);
-				}
-			}
-			if (creditCategoryList.get(15).equals("a")) {
-				for (int i = 0; i < AMUSEMENTPARK_LIST.length; i++) {
-					category.add(AMUSEMENTPARK_LIST[i]);
-				}
-			}
-
-			if (creditCategoryList.get(16).equals("a")) {
-				for (int i = 0; i < MEDICAL_LIST.length; i++) {
-					category.add(MEDICAL_LIST[i]);
-				}
-			}
-
-		}
+		ArrayList<String> category = Util.getCategoryList(creditCategoryList);
 
 		BasicDBObject searchQuery = new BasicDBObject();
 		int creditTotalCnt = 0;
@@ -202,7 +94,6 @@ public class CreditCardController {
 			if (category.size() != 0) {
 				for (int i = 0; i < category.size(); i++) {
 					categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(category.get(i))));
-					System.out.println(category.get(i));
 				}
 				searchQuery.put("$or", categoryLikeList);
 			}
@@ -243,7 +134,7 @@ public class CreditCardController {
 		} else {
 			creditTotalPageCnt = creditTotalCnt / 10 + 1;
 		}
-		creditCardList = cardList(searchQuery, no, 10);
+		creditCardList = cardList(searchQuery, null, no, 10);
 
 		model.addAttribute("creditCardList", creditCardList);
 		model.addAttribute("creditTotalCnt", creditTotalCnt);
@@ -272,7 +163,7 @@ public class CreditCardController {
 		return count;
 	}
 
-	public static List<CreditCard> cardList(BasicDBObject searchQuery, int pageNo, int max) {
+	public static List<CreditCard> cardList(BasicDBObject searchQuery, BasicDBObject sortQuery, int pageNo, int max) {
 		try {
 			MongoClient mongo = MongoConfig.mongo();
 			DB db = mongo.getDB("hana");
@@ -282,8 +173,11 @@ public class CreditCardController {
 			int skipPage = (pageNo - 1) * 10;
 
 			DBCursor cursor;
-
-			if (searchQuery != null && searchQuery.size() != 0) {
+			
+			if(sortQuery != null && sortQuery.size() == 0){
+				cursor = collection.find().sort(sortQuery).limit(max);
+			}
+			else if (searchQuery != null && searchQuery.size() != 0) {
 				cursor = collection.find(searchQuery).skip(skipPage).limit(max);
 			} else {
 				cursor = collection.find().skip(skipPage).limit(max);
@@ -436,13 +330,11 @@ public class CreditCardController {
 							Benefits benefits = new Benefits();
 							benefits.setCategory(benefitsCategory);
 
-							
-							 for (Object b : brandListList) {
-								 System.out.print(b); 
-							 }
-							 
-							 System.out.println();
-							
+							for (Object b : brandListList) {
+								System.out.print(b);
+							}
+
+							System.out.println();
 
 							for (int j = 0; j < brandListList.size(); j++) {
 								BasicDBObject brandListObj = (BasicDBObject) brandListList.get(j);
@@ -572,8 +464,6 @@ public class CreditCardController {
 	@RequestMapping("credit/updateViewCnt.do")
 	public boolean updateViewCnt(String id) {
 
-		System.out.println(id);
-
 		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
@@ -587,8 +477,6 @@ public class CreditCardController {
 		BasicDBObject intModifier = new BasicDBObject("$inc", incValue);
 
 		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
-
-		System.out.println(collection.findOne(query).get("viewCount"));
 
 		return true;
 	}

@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import kr.co.goodcard.vo.mongo.*;
 
 @Document(collection="creditCard")
-public class CreditCard {
+public class CreditCard implements Comparable<CreditCard>{
 	
 	@Id
 	private String id;
@@ -21,16 +21,19 @@ public class CreditCard {
 	private List<LimitBenefit> limitBenefit;
 	private List<SpecialService> specialServices;
 	private List<Benefits> benefits;
+	private Estimate estimate; // 추가
 	private int viewCount;
+	private int totalBenefit; // 추가
 	private String homepageURL;
 	
 	public CreditCard() {
-
+		super();
 	}
-
+	
 	public CreditCard(String id, String brand, String cardType, String cardName, String annotation, String imagePath,
 			List<AnnualFee> annualFee, List<LimitBenefit> limitBenefit, List<SpecialService> specialServices,
-			List<Benefits> benefits, int viewCount, String homepageURL) {
+			List<Benefits> benefits, Estimate estimate, int viewCount, int totalBenefit, String homepageURL) {
+		super();
 		this.id = id;
 		this.brand = brand;
 		this.cardType = cardType;
@@ -41,7 +44,9 @@ public class CreditCard {
 		this.limitBenefit = limitBenefit;
 		this.specialServices = specialServices;
 		this.benefits = benefits;
+		this.estimate = estimate;
 		this.viewCount = viewCount;
+		this.totalBenefit = totalBenefit;
 		this.homepageURL = homepageURL;
 	}
 
@@ -125,12 +130,28 @@ public class CreditCard {
 		this.benefits = benefits;
 	}
 
+	public Estimate getEstimate() {
+		return estimate;
+	}
+
+	public void setEstimate(Estimate estimate) {
+		this.estimate = estimate;
+	}
+
 	public int getViewCount() {
 		return viewCount;
 	}
 
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
+	}
+
+	public int getTotalBenefit() {
+		return totalBenefit;
+	}
+
+	public void setTotalBenefit(int totalBenefit) {
+		this.totalBenefit = totalBenefit;
 	}
 
 	public String getHomepageURL() {
@@ -143,10 +164,45 @@ public class CreditCard {
 
 	@Override
 	public String toString() {
-		return "CreditCard [id=" + id + ", brand=" + brand + ", cardType=" + cardType + ", cardName=" + cardName
-				+ ", annotation=" + annotation + ", imagePath=" + imagePath + ", annualFee=" + annualFee
-				+ ", limitBenefit=" + limitBenefit + ", specialServices=" + specialServices + ", benefits=" + benefits
-				+ ", viewCount=" + viewCount + ", homepageURL=" + homepageURL + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CreditCard [id=");
+		builder.append(id);
+		builder.append(", brand=");
+		builder.append(brand);
+		builder.append(", cardType=");
+		builder.append(cardType);
+		builder.append(", cardName=");
+		builder.append(cardName);
+		builder.append(", annotation=");
+		builder.append(annotation);
+		builder.append(", imagePath=");
+		builder.append(imagePath);
+		builder.append(", annualFee=");
+		builder.append(annualFee);
+		builder.append(", limitBenefit=");
+		builder.append(limitBenefit);
+		builder.append(", specialServices=");
+		builder.append(specialServices);
+		builder.append(", benefits=");
+		builder.append(benefits);
+		builder.append(", estimate=");
+		builder.append(estimate);
+		builder.append(", viewCount=");
+		builder.append(viewCount);
+		builder.append(", homepageURL=");
+		builder.append(homepageURL);
+		builder.append("]");
+		return builder.toString();
 	}
-	
+
+	@Override
+	public int compareTo(CreditCard o) {
+		if(this.totalBenefit < o.totalBenefit) {
+			return 1;
+		} else if(this.totalBenefit > o.totalBenefit) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
 }

@@ -9,7 +9,7 @@ public final class MongoConfig{
     }
   
     public static MongoClient mongo(){
-        return new MongoClient("13.124.121.245", 27017);
+        return new MongoClient("13.125.9.203", 27017);
     }
   
     protected String getMappingBasePackage() {

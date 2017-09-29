@@ -1,5 +1,7 @@
 package kr.co.goodcard.util;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -209,5 +211,123 @@ public final class Util {
 
 		}
 		return set;
+	}
+
+	public static ArrayList<String> getCategoryList(List<String> creditCategoryList) {
+		ArrayList<String> category = new ArrayList<>();
+		
+		if (creditCategoryList != null) {
+			if (creditCategoryList.get(0).equals("a")) {
+				for (int i = 0; i < COMMUNICATION_LIST.length; i++) {
+					category.add(COMMUNICATION_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(1).equals("a")) {
+				for (int i = 0; i < RESTAURANT_LIST.length; i++) {
+					category.add(RESTAURANT_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(2).equals("a")) {
+				for (int i = 0; i < MART_LIST.length; i++) {
+					category.add(MART_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(3).equals("a")) {
+				for (int i = 0; i < BEAUTY_LIST.length; i++) {
+					category.add(BEAUTY_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(4).equals("a")) {
+				for (int i = 0; i < GASSTATION_LIST.length; i++) {
+					category.add(GASSTATION_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(5).equals("a")) {
+				for (int i = 0; i < FASTFOOD_LIST.length; i++) {
+					category.add(FASTFOOD_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(6).equals("a")) {
+				for (int i = 0; i < SUPERMARKET_LIST.length; i++) {
+					category.add(SUPERMARKET_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(7).equals("a")) {
+				for (int i = 0; i < BOOKSTORE_LIST.length; i++) {
+					category.add(BOOKSTORE_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(8).equals("a")) {
+				for (int i = 0; i < MOVIE_LIST.length; i++) {
+					category.add(MOVIE_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(9).equals("a")) {
+				for (int i = 0; i < CAFETERIA_LIST.length; i++) {
+					category.add(CAFETERIA_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(10).equals("a")) {
+				for (int i = 0; i < ONLINESHOPPING_LIST.length; i++) {
+					category.add(ONLINESHOPPING_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(11).equals("a")) {
+				for (int i = 0; i < ACADEMY_LIST.length; i++) {
+					category.add(ACADEMY_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(12).equals("a")) {
+				for (int i = 0; i < TRANSPORTATION_LIST.length; i++) {
+					category.add(TRANSPORTATION_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(13).equals("a")) {
+				for (int i = 0; i < CAFEBAKERY_LIST.length; i++) {
+					category.add(CAFEBAKERY_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(14).equals("a")) {
+				for (int i = 0; i < CONVENIENCE_LIST.length; i++) {
+					category.add(CONVENIENCE_LIST[i]);
+				}
+			}
+			if (creditCategoryList.get(15).equals("a")) {
+				for (int i = 0; i < AMUSEMENTPARK_LIST.length; i++) {
+					category.add(AMUSEMENTPARK_LIST[i]);
+				}
+			}
+
+			if (creditCategoryList.get(16).equals("a")) {
+				for (int i = 0; i < MEDICAL_LIST.length; i++) {
+					category.add(MEDICAL_LIST[i]);
+				}
+			}
+
+		}
+		
+		return category;
+	}
+	
+	public static Date TransformDate(String date) {
+		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+		// Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
+		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+		java.util.Date tempDate = null;
+
+		try {
+			// 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
+			tempDate = beforeFormat.parse(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// java.util.Date를 yyyy-mm-dd 형식으로 변경하여 String로 반환한다.
+		String transDate = afterFormat.format(tempDate);
+
+		// 반환된 String 값을 Date로 변경한다.
+		Date d = Date.valueOf(transDate);
+
+		return d;
 	}
 }

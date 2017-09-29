@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.goodcard.service.MemberService;
+import kr.co.goodcard.util.Util;
 import kr.co.goodcard.vo.Member;
 
 @Controller
@@ -29,44 +30,19 @@ public class MemberController {
 
 	@RequestMapping(value = "join.do", method = RequestMethod.GET)
 	public String joinForm() {
-		System.out.println("join 실행");
 		return "member/joinForm";
 	}
 
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
 	public String join(Member member) {
 		member.setPhone(member.getPhone1() + '-' + member.getPhone2() + '-' + member.getPhone3());
-		member.setBirthDate(TransformDate(member.getInputBirthDate()));
+		member.setBirthDate(Util.TransformDate(member.getInputBirthDate()));
 		System.out.println(member);
 		boolean isSuccess = memberService.insertMember(member);
 		if (isSuccess == false) {
 			return "member/joinForm";
 		}
 		return "redirect:/";
-	}
-
-	private Date TransformDate(String date) {
-		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
-
-		// Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
-		SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
-
-		java.util.Date tempDate = null;
-
-		try {
-			// 현재 yyyymmdd로된 날짜 형식으로 java.util.Date객체를 만든다.
-			tempDate = beforeFormat.parse(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// java.util.Date를 yyyy-mm-dd 형식으로 변경하여 String로 반환한다.
-		String transDate = afterFormat.format(tempDate);
-
-		// 반환된 String 값을 Date로 변경한다.
-		Date d = Date.valueOf(transDate);
-
-		return d;
 	}
 
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)

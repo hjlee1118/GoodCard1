@@ -10,6 +10,7 @@
 <c:set var="context" value="${pageContext.request.contextPath }" />
 <script src="${context}/resources/custom/js/jquery-3.2.1.js"></script>
 <script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script>
+<script src="${context}/resources/custom/js/creditList.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -82,41 +83,59 @@
 									},
 									success : function(creditCardList) {
 
+										var str = '';
+										
 										$('#searchResultArea').empty();
 
 										if (creditCardList.length == 0) {
-											$('#searchResultArea').append('<div style="height: 286px; clear: both;"></div>');
-												$('#searchResultArea').append('<div style="text-align: center; color: #7b7b7b;">유사 카드가 존재하지 않습니다.</div>');
+											str += '<div style="height: 286px; clear: both;"></div>';
+											str += '<div style="text-align: center; color: #7b7b7b;">유사 카드가 존재하지 않습니다.</div>';
 										}
-										
 										else {
-											var str = '';
-											$.each(creditCardList, function(i, v) {
-												var brand = v.brand;
-												var imagePath = '/GoodCard/resources/cardImage/'+ v.imagePath;
-												var cardName = v.cardName;
-												var annotation = v.annotation;
-												
-												str += '<div style="height: 0px; clear: both;"></div><div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;"><div style="height: 100%; float: left; padding: 5%; display: inline-block;"><b style="font-size: 20pt; color: #0085a1;">'+(i+1)+'</b></div>';
-												str += '<div style="margin: 3% 0px; height: 100px; width:200px; display: inline-block; background-size: contain; background-repeat: no-repeat; background:url("';
-												str += '"13.124.121.245/img/"'+v.imagePath;
-												str += '")"></div>';
-												str += '<div style="display: inline-block; height: 100%; padding-top: 3%; padding-left:2.4%; float: left; width: 50%;">'+brand;
-												str += '<div style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">';
-												str += '<b>'+cardName+'</b>';
-												str += '</div>'+annotation+'</div><div style="display: inline-block; float: right; margin: 3%"><span style="text-align: center;" class="card-detail-button"><a href="#open" class="card-detail-button" style="color: #0085a1;">상세 보기</a></span><span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span></div></div>';
-
-												});
 											
-												$('#searchResultArea').append(str);
-												console.log(str);
-												/* $('#searchResultArea').append('<c:forEach items="${cardList}" var="list" varStatus="status">');
-												$('#searchResultArea').append('${list.cardName}'); 
-												$('#searchResultArea').append('<br/>'); 
-												$('#searchResultArea').append('</c:forEach>'); */
-											}
+											var i = 0;
+											
+											var modal_str = '';
+											
+											while(i < 4){
+												
+												str += '<div style="height: 0px; clear: both;"></div>';
+												
+												if(i == parseInt(creditCardList.length)-1){
+													str += '<div style="width: 100%; height: 178px;">';
+												}
+												else{
+													str += '<div style="width: 100%; height: 178px; border-bottom: 1px solid #E0E0E0;">';
+												}
+												str += '<div style="height: 100%; float: left; padding: 5%;">';
+												str += '<b style="font-size: 20pt; color: #0085a1; font-family: "Nanum Gothic", serif;">' + (parseInt(i) + 1) + '</b></div>';
+												
+												var fileImagePath = "url('" + "${context}/resources/cardImage/"+creditCardList[i].imagePath + "');";
 
-										},
+												str += '<div class="card-image-area" style="margin: 3% 0px; height: 100px; width:200px; background: '+ fileImagePath +' background-size: contain;	background-repeat: no-repeat;">';
+												str += '</div>';
+
+												str += '<div style="display: inline-block; height: 100%; padding-top: 3%; padding-left: 2.4%; float: left; width: 50%;">'+creditCardList[i].brand;
+													
+												str += '<div style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">';
+												str += '<b>'+creditCardList[i].cardName+'</b>';
+												str += '<div style="color: #0085a1; margin-top: 1%; text-align: left; width: 500px; font-size:12pt; padding-top: 2%">'+'" '+creditCardList[i].annotation+' "</div>'
+												str += '</div></div>';
+
+												str += '<div style="display: inline-block; float: right; margin-top: 3%; margin-right: 3%;">';
+												str += '<span style="text-align: center;" class="card-detail-button">';
+												str += '<a href="#open'+(parseInt(i) + 1) +'" class="card-detail-button" style="color: #0085a1;">상세 보기</a>';
+												str += '</span> <span class="card-homepage-button" style="text-align: center;">홈페이지</span>';
+												str += '</div></div>';
+												
+												i++;
+											}
+																																
+
+										}
+										$('#searchResultArea').append(str);
+										
+									},
 										error : function(xhr, status, error) {
 										}
 									});
@@ -369,7 +388,6 @@ html, body {
 
 .recommend_keyword_rank {
 	float: left;
-	width: 25%;
 	display: inline-block;
 	min-height: 716px;
 	background: #f6f8fc;
@@ -591,60 +609,60 @@ div.selected:active {
 					<div style="height: 20px; clear: both;"></div>
 					<div id="recommend_keyword_title_content"
 						style="width: 100%; text-align: center; color: white;">
-						GoodCard 브랜드별, 혜택별 검색어 순위를 확인 할 수 있습니다.</div>
+						GoodCard 카드별, 혜택별 검색어 순위를 확인 할 수 있습니다.</div>
 					<div style="height: 50px; clear: both;"></div>
 					<div style="width: 100%; min-height: 716px; text-align: center;">
 						<div style="height: 0px; clear: both;"></div>
 						<div class="recommend_keyword_rank"
-							style="border-right: 1px solid #dde8f6">
-							<b>신용카드 인기 브랜드</b>
-							<c:forEach begin="0" end="9" varStatus="status">
+							style="border-right: 1px solid #dde8f6; width: 30%;">
+							<b>신용카드<br/>조회수 TOP 10</b>
+							<c:forEach items="${creditCardRank}" var="list" varStatus="status">
 								<div style="height: 30px; clear: both;"></div>
-								<div style="width: 100%; text-align: left; padding-left: 15%;">
+								<div style="width: 100%; text-align: left; padding-left: 5%; font-size: 12pt;">
 									<div id="rank_num"
-										style="width: 15%; color: #3387DE; font-weight: bold; display: inline-block;">${status.index+1}</div>
+										style="width: 5%; color: #3387DE; font-weight: bold; display: inline-block; padding-right: 1%">${status.index+1}</div>
 									<div id="rank_name"
-										style="color: #7b7b7b; display: inline-block;">하나카드</div>
+										style="color: #7b7b7b; display: inline-block; padding-left: 5%;">${list.cardName }</div>
 								</div>
 							</c:forEach>
 						</div>
 						<div class="recommend_keyword_rank"
-							style="border-right: 1px solid #dde8f6">
-							<b>체크카드 인기 브랜드</b>
-							<c:forEach begin="0" end="9" varStatus="status">
+							style="border-right: 1px solid #dde8f6; width: 30%">
+							<b>체크카드<br/>조회수 TOP 10</b>
+							<c:forEach items="${checkCardRank}" var="list" varStatus="status">
 								<div style="height: 30px; clear: both;"></div>
-								<div style="width: 100%; text-align: left; padding-left: 15%;">
+								<div style="width: 100%; text-align: left; padding-left: 5%; font-size: 12pt;">
 									<div id="rank_num"
-										style="width: 15%; color: #3387DE; font-weight: bold; display: inline-block;">${status.index+1}</div>
+										style="width: 5%; color: #3387DE; font-weight: bold; display: inline-block; padding-right: 1%;">${status.index+1}</div>
 									<div id="rank_name"
-										style="color: #7b7b7b; display: inline-block;">하나카드</div>
+										style="color: #7b7b7b; display: inline-block; padding-left: 5%;">${list.cardName }</div>
 								</div>
 							</c:forEach>
 						</div>
 						<div class="recommend_keyword_rank"
-							style="border-right: 1px solid #dde8f6">
-							<b>신용카드 인기 혜택</b>
+							style="border-right: 1px solid #dde8f6; width: 20%;">
+							<b>신용카드<br/>인기 혜택</b>
 							<c:forEach items="${creditBestBenefitList}" var="list" begin="0"
 								end="9" varStatus="status">
 								<div style="height: 30px; clear: both;"></div>
-								<div style="width: 100%; text-align: left; padding-left: 15%;">
+								<div style="width: 100%; text-align: left; padding-left: 5%; font-size: 12pt;">
 									<div id="rank_num"
-										style="width: 15%; color: #3387DE; font-weight: bold; display: inline-block;">${status.index+1}</div>
+										style="width: 20%; color: #3387DE; font-weight: bold; display: inline-block; font-size: 12pt; padding-right: 1%;">${status.index+1}</div>
 									<div id="rank_name"
-										style="color: #7b7b7b; display: inline-block;">${list}</div>
+										style="color: #7b7b7b; display: inline-block; padding-left: 5%;">${list}</div>
 								</div>
 							</c:forEach>
 						</div>
-						<div class="recommend_keyword_rank">
-							<b>체크카드 인기 혜택</b>
+						<div class="recommend_keyword_rank" style="width: 20%;">
+							<b>체크카드<br/>인기 혜택</b>
 							<c:forEach items="${checkBestBenefitList}" var="list" begin="0"
 								end="9" varStatus="status">
 								<div style="height: 30px; clear: both;"></div>
-								<div style="width: 100%; text-align: left; padding-left: 15%;">
+								<div style="width: 100%; text-align: left; padding-left: 5%; font-size: 12pt;">
 									<div id="rank_num"
-										style="width: 15%; color: #3387DE; font-weight: bold; display: inline-block;">${status.index+1}</div>
+										style="width: 20%; color: #3387DE; font-weight: bold; display: inline-block; padding-right: 1%;">${status.index+1}</div>
 									<div id="rank_name"
-										style="color: #7b7b7b; display: inline-block;">${list}</div>
+										style="color: #7b7b7b; display: inline-block; padding-left: 5%;">${list}</div>
 								</div>
 							</c:forEach>
 						</div>
@@ -898,9 +916,11 @@ div.selected:active {
 
 							<div id="searchResultArea"
 								style="width: 100%; min-height: 712px; background: #F6F8FC; font-size: 12pt;">
-
 								
-							<div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;">
+							<div style="height: 0px; clear: both;"></div>
+								
+								
+							<%-- <div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;">
 									<div style="height: 100%; float: left; padding: 5%;">
 										<b
 											style="font-size: 20pt; color: #0085a1; font-family: 'Nanum Gothic', serif;">1</b>
@@ -926,34 +946,8 @@ div.selected:active {
 										<span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span>
 
 									</div>
-								</div>
-								<div style="width: 100%; height: 170px; border-bottom: 1px solid #E0E0E0;">
-									<div style="height: 100%; float: left; padding: 5%;">
-										<b
-											style="font-size: 20pt; color: #0085a1; font-family: 'Nanum Gothic', serif;">1</b>
-									</div>
-
-									<div class="card-image-area"
-										style="margin: 3% 0px; height: 100px; width:200px; background: url('${context}/resources/cardImage/1.png'); background-size: contain;	background-repeat: no-repeat;">
-									</div>
-
-									<div
-										style="display: inline-block; height: 100%; padding-top: 3%; padding-left:2.4%; float: left; width: 50%;">
-										신한카드
-										<div
-											style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">
-											<b>신한 S-choice 카드</b>
-										</div>
-									</div>
-
-									<div style="display: inline-block; float: right; height: 100%; margin: 3%">
-										<span style="text-align: center;" class="card-detail-button">
-										<a href="#open" class="card-detail-button" style="color: #0085a1;">상세 보기</a>
-										</span>
-										<span class="card-homepage-button" style="text-align: center;"> 카드 신청 </span>
-
-									</div>
-								</div>
+								</div> --%>
+								
 								
 
 							</div>
@@ -966,7 +960,6 @@ div.selected:active {
 			</div>
 
 		</div>
-
 
 		<%-- <div style="height: 0px; clear: both;"></div>
 		<div style="width: 100%; height: 168px;">

@@ -29,6 +29,7 @@ import kr.co.goodcard.config.MongoConfig;
 import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
+import kr.co.goodcard.util.Util;
 import kr.co.goodcard.vo.CheckCard;
 import kr.co.goodcard.vo.Member;
 import kr.co.goodcard.vo.mongo.AnnualFee;
@@ -52,24 +53,6 @@ public class CheckCardController {
 			"기업카드", "씨티카드", "스탠다드차타드카드", "부산은행", "광주은행", "대구은행", "경남은행", "전북은행", "제주은행", "수협은행", "신협은행", "새마을금고",
 			"산업은행", "우체국카드", "케이뱅크", "웰컴저축은행", "KB증권", "유안타증권", "동부증권", "유진투자증권", "전체" };
 
-	private static String[] COMMUNICATION_LIST = { "휴대폰" };
-	private static String[] RESTAURANT_LIST = { "레스토랑", "뷔페" };
-	private static String[] MART_LIST = { "마트", "코스트코" };
-	private static String[] BEAUTY_LIST = { "뷰티", "화장품", "미용" };
-	private static String[] GASSTATION_LIST = { "주유", "등유", "경유", "LPG", "휘발유" };
-	private static String[] FASTFOOD_LIST = { "피자", "샌드위치", "패스트푸드" };
-	private static String[] SUPERMARKET_LIST = { "슈퍼마켓" };
-	private static String[] BOOKSTORE_LIST = { "서점" };
-	private static String[] MOVIE_LIST = { "영화", "예매" };
-	private static String[] CAFETERIA_LIST = { "식당" };
-	private static String[] ONLINESHOPPING_LIST = { "인터넷", "쇼핑", "SPA", "복합", "소셜커머스", "아울렛", "면세점", "백화점", "의류" };
-	private static String[] ACADEMY_LIST = { "교육", "학습" };
-	private static String[] TRANSPORTATION_LIST = { "교통" };
-	private static String[] CAFEBAKERY_LIST = { "카페", "커피", "아이스크림", "베이커리", "도너츠", "음료" };
-	private static String[] CONVENIENCE_LIST = { "편의점", "업종" };
-	private static String[] AMUSEMENTPARK_LIST = { "놀이", "워터파크", "공원", "아쿠아" };
-	private static String[] MEDICAL_LIST = { "병원" };
-
 	private static String[] selectCheckCardNameList = { "하나카드 ", "국민카드 ", "신한카드 ", "삼성카드 ", "롯데카드 ", "현대카드 ", "우리카드 ",
 			"NH농협카드", "IBK기업은행 ", "씨티카드 ", "SC제일은행 ", "부산은행 ", "광주은행 ", "대구은행 ", "경남은행 ", "전북은행", "제주은행 ", "수협은행 ",
 			"신협 ", "새마을금고 ", "산업은행 ", "우체국체크 ", "케이뱅크 ", "웰컴저축은행", "KB증권 ", "유안타증권 ", "동부증권 ", "유진투자증권" };
@@ -88,8 +71,7 @@ public class CheckCardController {
 		List<String> checkCategoryList = (List<String>) session.getAttribute("checkCategoryList");
 
 		ArrayList<String> brand = new ArrayList<String>();
-		ArrayList<String> category = new ArrayList<String>();
-		
+
 		if (checkDataList != null && checkDataList.get(28).equals("i")) {
 			for (int i = 0; i <= 27; i++) {
 				if (checkDataList.get(i).equals("a")) {
@@ -98,95 +80,7 @@ public class CheckCardController {
 			}
 		}
 
-		if (checkCategoryList != null) {
-			if (checkCategoryList.get(0).equals("a")) {
-				for (int i = 0; i < COMMUNICATION_LIST.length; i++) {
-					category.add(COMMUNICATION_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(1).equals("a")) {
-				for (int i = 0; i < RESTAURANT_LIST.length; i++) {
-					category.add(RESTAURANT_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(2).equals("a")) {
-				for (int i = 0; i < MART_LIST.length; i++) {
-					category.add(MART_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(3).equals("a")) {
-				for (int i = 0; i < BEAUTY_LIST.length; i++) {
-					category.add(BEAUTY_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(4).equals("a")) {
-				for (int i = 0; i < GASSTATION_LIST.length; i++) {
-					category.add(GASSTATION_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(5).equals("a")) {
-				for (int i = 0; i < FASTFOOD_LIST.length; i++) {
-					category.add(FASTFOOD_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(6).equals("a")) {
-				for (int i = 0; i < SUPERMARKET_LIST.length; i++) {
-					category.add(SUPERMARKET_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(7).equals("a")) {
-				for (int i = 0; i < BOOKSTORE_LIST.length; i++) {
-					category.add(BOOKSTORE_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(8).equals("a")) {
-				for (int i = 0; i < MOVIE_LIST.length; i++) {
-					category.add(MOVIE_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(9).equals("a")) {
-				for (int i = 0; i < CAFETERIA_LIST.length; i++) {
-					category.add(CAFETERIA_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(10).equals("a")) {
-				for (int i = 0; i < ONLINESHOPPING_LIST.length; i++) {
-					category.add(ONLINESHOPPING_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(11).equals("a")) {
-				for (int i = 0; i < ACADEMY_LIST.length; i++) {
-					category.add(ACADEMY_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(12).equals("a")) {
-				for (int i = 0; i < TRANSPORTATION_LIST.length; i++) {
-					category.add(TRANSPORTATION_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(13).equals("a")) {
-				for (int i = 0; i < CAFEBAKERY_LIST.length; i++) {
-					category.add(CAFEBAKERY_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(14).equals("a")) {
-				for (int i = 0; i < CONVENIENCE_LIST.length; i++) {
-					category.add(CONVENIENCE_LIST[i]);
-				}
-			}
-			if (checkCategoryList.get(15).equals("a")) {
-				for (int i = 0; i < AMUSEMENTPARK_LIST.length; i++) {
-					category.add(AMUSEMENTPARK_LIST[i]);
-				}
-			}
-
-			if (checkCategoryList.get(16).equals("a")) {
-				for (int i = 0; i < MEDICAL_LIST.length; i++) {
-					category.add(MEDICAL_LIST[i]);
-				}
-			}
-
-		}
+		ArrayList<String> category = Util.getCategoryList(checkCategoryList);
 
 		BasicDBObject searchQuery = new BasicDBObject();
 		int checkTotalCnt = 0;
@@ -200,15 +94,14 @@ public class CheckCardController {
 
 			// 전체 브랜드, 카테고리 별 검색
 			if (category.size() != 0) {
-				for(int i = 0; i<category.size(); i++){
+				for (int i = 0; i < category.size(); i++) {
 					categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(category.get(i))));
-					System.out.println(category.get(i));
 				}
 				searchQuery.put("$or", categoryLikeList);
 			}
 
 		} else {
-			
+
 			BasicDBObject brandInQuery = new BasicDBObject("$in", brand);
 			// 브랜드별로 검색
 			if (category.size() == 0) {
@@ -217,17 +110,17 @@ public class CheckCardController {
 			// 브랜드별, 카테고리별 검색
 			else {
 				int brandSize = brand.size();
-				for(int i = 0; i < brandSize; i++) {
+				for (int i = 0; i < brandSize; i++) {
 					brandLikeList.add(new BasicDBObject("brand", brand.get(i)));
 				}
 				BasicDBObject brandOR = new BasicDBObject("$or", brandLikeList);
-				
+
 				int categorySize = category.size();
-				for(int i = 0; i < categorySize; i++) {
+				for (int i = 0; i < categorySize; i++) {
 					categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(category.get(i))));
 				}
 				BasicDBObject categoryOR = new BasicDBObject("$or", categoryLikeList);
-				
+
 				BasicDBList finalQuery = new BasicDBList();
 				finalQuery.add(brandOR);
 				finalQuery.add(categoryOR);
@@ -243,13 +136,13 @@ public class CheckCardController {
 		} else {
 			checkTotalPageCnt = checkTotalCnt / 10 + 1;
 		}
-		checkCardList = checkCardList(searchQuery, no);
-			
+		checkCardList = checkCardList(searchQuery, null, no, 10);
+
 		model.addAttribute("checkCardList", checkCardList);
 		model.addAttribute("checkTotalCnt", checkTotalCnt);
 		model.addAttribute("checkTotalPageCnt", checkTotalPageCnt);
 		model.addAttribute("checkDataList", checkDataList);
-		
+
 		model.addAttribute("checkCardNameList", selectCheckCardNameList);
 		model.addAttribute("selectCheckCategoryList", selectCategoryList);
 
@@ -258,7 +151,7 @@ public class CheckCardController {
 	}
 
 	public static int checkCardCnt(BasicDBObject searchQuery) {
-		
+
 		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
@@ -274,7 +167,7 @@ public class CheckCardController {
 		return count;
 	}
 
-	public static List<CheckCard> checkCardList(BasicDBObject searchQuery, int pageNo) {
+	public static List<CheckCard> checkCardList(BasicDBObject searchQuery, BasicDBObject sortQuery, int pageNo, int max) {
 		try {
 			MongoClient mongo = MongoConfig.mongo();
 			DB db = mongo.getDB("hana");
@@ -285,10 +178,13 @@ public class CheckCardController {
 
 			DBCursor cursor;
 
-			if (searchQuery != null && searchQuery.size() != 0) {
-				cursor = collection.find(searchQuery).skip(skipPage).limit(10);
+			if(sortQuery != null && sortQuery.size() == 0){
+				cursor = collection.find().sort(sortQuery).limit(max);
+			}
+			else if (searchQuery != null && searchQuery.size() != 0) {
+				cursor = collection.find(searchQuery).skip(skipPage).limit(max);
 			} else {
-				cursor = collection.find().skip(skipPage).limit(10);
+				cursor = collection.find().skip(skipPage).limit(max);
 			}
 
 			List<CheckCard> list = new ArrayList<>();
@@ -480,7 +376,6 @@ public class CheckCardController {
 
 	}
 
-	
 	@ResponseBody
 	@RequestMapping(value = "searchQueryBrand.do")
 	public boolean searchQueryBrand(@RequestBody List<String> list, HttpSession session, Model model) {
@@ -489,7 +384,7 @@ public class CheckCardController {
 
 		if (list != null && list.size() > 0) {
 
-			Member member = (Member)session.getAttribute("loginUser");
+			Member member = (Member) session.getAttribute("loginUser");
 			List<String> checkDataList = new ArrayList<String>();
 			List<String> checkCategoryList = new ArrayList<String>();
 			List<String> searchKeywordList = new ArrayList<String>();
@@ -511,20 +406,19 @@ public class CheckCardController {
 				searchKeywordList.add(list.get(i));
 				checkCategoryList.add(list.get(i));
 			}
-			
-			if(member != null){
+
+			if (member != null) {
 				Date date = new Date(member.getBirthDate().getTime());
-				
-				int birthYear = date.getYear()+1900;
-				int birthMonth = date.getMonth()+1;
+
+				int birthYear = date.getYear() + 1900;
+				int birthMonth = date.getMonth() + 1;
 				int birthDay = date.getDate();
 
 				int age = AgeUtils.getAge(birthYear, birthMonth, birthDay);
-				
+
 				boolean b = searchKeywordService.insertSearchKeyword(list, age, "check");
-				System.out.println("check search keyword : " + b);
 			}
-			
+
 			if (checkCnt > 0) {
 				session.setAttribute("checkDataList", checkDataList);
 			} else {
@@ -541,32 +435,28 @@ public class CheckCardController {
 			return false;
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("check/updateViewCnt.do")
-	public boolean updateViewCnt(String id){
-		
+	public boolean updateViewCnt(String id) {
+
 		System.out.println(id);
-		
+
 		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
 		// get a single collection
 		DBCollection collection = db.getCollection("checkCard");
-		
+
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", new ObjectId(id));
-		
+
 		BasicDBObject incValue = new BasicDBObject("viewCount", 1);
 		BasicDBObject intModifier = new BasicDBObject("$inc", incValue);
-		
+
 		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
-		
-		System.out.println(collection.findOne(query).get("viewCount"));
-		
-		
+
 		return true;
 	}
-	
 
 }

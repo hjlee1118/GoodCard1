@@ -195,3 +195,155 @@ span.paging-disabled:hover {
 .card-detail-subcontent {
 	font-size: 12pt;
 }
+
+
+.click-benefit-info-area:hover {
+	font-weight: bold;
+}
+
+.click-card-info-area:hover {
+	font-weight: bold;
+}
+
+#show_modal {
+	cursor: pointer;
+}
+
+#show_modal:hover {
+	color: #0085a1;
+}
+
+.white_content {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+	opacity: 0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.white_content:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.white_content>div {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 60%;
+	padding: 16px;
+	background-color: white;
+	overflow: auto;
+}
+
+.card-image-area {
+	width: 15%;
+	height: 30%;
+	float: left;
+	display: inline-block;
+	margin-top: 2%;
+}
+
+.card-summarized-info {
+	padding-top: 2%;
+	float: left;
+	display: inline-block;
+}
+
+.info-padding {
+	margin-bottom: 0.5%;
+	text-align: left;
+}
+
+.card-detail-subtitle {
+	font-size: 13pt;
+}
+
+.card-detail-subcontent {
+	font-size: 12pt;
+}
+
+.box {
+	position: relative;
+	width: 10%;
+	text-align: center;
+	display: inline-block;
+}
+
+.box:before {
+	content: "";
+	padding-top: 100%;
+	display: inline-block;
+}
+
+.content {
+	padding-top: 40%;
+	padding-bottom: 40%;
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border: 1px solid #E0E0E0;
+	cursor: pointer;
+}
+
+.content:hover {
+	background: #E0E0E0;
+	color: #fff;
+}
+
+.box-active {
+	background: #0085a1;
+	color: #fff;
+	padding-top: 40%;
+	padding-bottom: 40%;
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border: 1px solid #E0E0E0;
+	cursor: pointer;
+}
+
+#searchCardBrand {
+	float: center;
+	background: black;
+	color: white;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	cursor: pointer;
+}
+
+#searchCategory {
+	float: center;
+	background: black;
+	color: white;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	cursor: pointer;
+}
+
+#search_option_area_open {
+	width: 100%;
+	padding: 1% 0px;
+	background: white;
+	border: 1px solid #0085a1;
+	color: #0085a1;
+	cursor: pointer;
+	text-align: center;
+}
+
+#search_option_area_open:hover {
+	font-weight: bold;
+}

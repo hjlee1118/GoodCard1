@@ -1,6 +1,7 @@
 package kr.co.goodcard.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -36,15 +37,10 @@ public class ManagerController {
 	public Object getBestBenefitByAge(String inputAge, HttpSession session) {
 
 		int startAge = Integer.parseInt(inputAge);
-
 		Age age = new Age();
 		age.setStartAge(startAge);
 		age.setEndAge(startAge + 9);
-
 		List<String> ageBenefitList1 = managerService.getBestBenefitByAge(age);
-
-		System.out.println(ageBenefitList1.get(0));
-
 		return ageBenefitList1;
 	}
 
@@ -54,9 +50,7 @@ public class ManagerController {
 			Model model) {
 
 		Set<String> benefitList = Util.getBenefitList(myArray);
-
 		BasicDBObject searchQuery = new BasicDBObject();
-
 		List<CreditCard> creditCardList = new ArrayList<CreditCard>();
 		BasicDBList categoryLikeList = new BasicDBList();
 
@@ -64,16 +58,9 @@ public class ManagerController {
 			categoryLikeList.add(new BasicDBObject("benefits.category", Pattern.compile(s)));
 		}
 		searchQuery.put("$and", categoryLikeList);
-
-		creditCardList = CreditCardController.cardList(searchQuery, 1, 4);
-
-		if (creditCardList != null && creditCardList.size() > 0) {
-			for (CreditCard c : creditCardList) {
-				System.out.println(c.getCardName());
-			}
-		}
-
-		model.addAttribute("cardList", creditCardList);
+		creditCardList = CreditCardController.cardList(searchQuery, null, 1, 100);
+		Collections.reverse(creditCardList);
+		model.addAttribute("creditCardList", creditCardList);
 
 		return creditCardList;
 	}
