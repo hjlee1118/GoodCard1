@@ -160,15 +160,6 @@ input, button, select, textarea {
     display: inline-table;
 }
 
-div#subMenu > a{
-	margin: 5px;
-}
-
-div#subMENU{
-	font-family: 'Noto Sans KR', serif;
-	font-size: 10pt;
-}
-
 #show_modal{
 	cursor: pointer;
 }

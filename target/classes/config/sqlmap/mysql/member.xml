@@ -6,29 +6,37 @@
 
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="member">
-		insert into MEMBER (id, password, name, gender, email, phone, type, birthDate)
-		values(#{id}, #{password}, #{name}, #{gender}, #{email}, #{phone}, #{type}, #{birthDate})
+		insert into MEMBER (ID, PASSWORD, NAME, GENDER, EMAIL, PHONE, TYPE, BIRTHDATE)
+		values(#{id}, #{password}, #{name}, #{gender}, #{email}, #{phone}, #{type}, DATE_ADD(#{birthDate}, INTERVAL 1 DAY))
 	</insert>
 	
 	<!-- 로그인 -->	
 	<select id="login" parameterType="member" resultType="member">
 		select *
 		from MEMBER
-		where id = #{id} and password = #{password}
+		where ID = #{id} and PASSWORD = #{password}
 	</select>
 	
 	<!-- 아이디 중복확인 -->
 	<select id="checkId" parameterType="String" resultType="int">
-		select count(*)	from MEMBER where id = #{id}
+		select count(*)	from MEMBER where ID = #{id}
 	</select>
 	
 	<!-- 설문조사 번호 등록 -->
-	<insert id="updatePollNo" parameterType="member">
+	<update id="updatePollNo" parameterType="member">
 		update MEMBER
 		set
-		poll_no = #{pollNo}
+		POLL_NO = #{pollNo}
 		where
-		no = #{no}
-	</insert>
+		NO = #{no}
+	</update>
+	
+	<update id="updateMember" parameterType="member">
+		update MEMBER 
+		set 
+		PASSWORD = #{password}, NAME = #{name}, GENDER = #{gender}, EMAIL = #{email}, PHONE = #{phone}, BIRTHDATE = DATE_ADD(#{birthDate}, INTERVAL 1 DAY)
+		where 
+		ID = #{id}
+	</update>
 	
 </mapper>

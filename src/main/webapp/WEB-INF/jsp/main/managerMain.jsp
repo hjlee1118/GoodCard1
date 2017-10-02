@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Good Card - 제휴 카드사 페이지</title>
 <c:set var="context" value="${pageContext.request.contextPath }" />
 <script src="${context}/resources/custom/js/jquery-3.2.1.js"></script>
 <script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script>

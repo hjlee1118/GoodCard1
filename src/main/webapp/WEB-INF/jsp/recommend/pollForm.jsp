@@ -6,24 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Good Card - 설문조사</title>
 
 <!-- Bootstrap core CSS -->
 <c:set var="context" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=7">
 <link
-	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=3"
+	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/main.css?ver=3"
+<link href="${context}/resources/custom/css/main.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/topMenu.css?ver=3"
+<link href="${context}/resources/custom/css/topMenu.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/cleardiv.css?ver=3"
+<link href="${context}/resources/custom/css/cleardiv.css?ver=7"
 	rel="stylesheet">
 <!-- Custom fonts for this template -->
 <link
-	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=3"
+	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=7"
 	rel="stylesheet" type="text/css">
 <link
 	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
@@ -33,88 +33,82 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=3"
+<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/bootstrap/css/main.css?ver=3"
+<link href="${context}/resources/bootstrap/css/main.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/pollForm.css?ver=3"
+<link href="${context}/resources/custom/css/pollForm.css?ver=7"
 	rel="stylesheet">
 
 <!-- Script File -->
 <script src="${context}/resources/custom/js/jquery-3.2.1.js"></script>
-<script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script> 
+<script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script>
 <script src="${context}/resources/custom/js/pollForm.js"></script>
 <style type="text/css">
-
 </style>
 
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/include/topMenu.jsp" />
 
-
 	<hr style="margin-top: 0px; margin-bottom: 5px; clear: both;">
-	<div id="subMenu" class="container">
-		<i class="fa fa-home" aria-hidden="true"></i> &nbsp;홈&nbsp;>&nbsp;내게
-		맞는 카드 찾기&nbsp;>&nbsp;설문조사
+	<div id="subMenu" class="container" style="font-size: 11pt">
+		<a href="${context}" style="margin: 0"><i class="fa fa-home"
+			aria-hidden="true"></i></a> <a href="${context}">홈</a><i
+			class="fa fa-chevron-right" aria-hidden="true"></i><a
+			href="${context}/recommend/poll.do">내게 맞는 카드 찾기</a>
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
-
-
 
 	<div class="poll-main">
 
 		<section class="section-wrapper"
 			style="padding-top: 100px; padding-bottom: 100px;">
 			<div class="container">
-			
+
 				<form id="pollForm" method="post"
 					action="${context}/recommend/poll.do">
-				<div id="poll_title" class="row"
-					style="margin: 0px; text-align: center;">
-					<b>설문조사</b>
-				</div>
-				<div style="color: gray;">
-					개인별 맞춤 서비스를 제공하기 위한 사전 설문조사입니다.<br> 한 달 평균 소비 패턴을 입력하시면, 분석 후
-					회원님께 최적의 카드를 추천해드립니다. <br>
-				</div>
-				<div style="height: 30px; clear: both;"></div>
-				
-				<div style="width: 100%; color: red;">
-					* 필수 입력 항목입니다. 빠짐없이 입력해주세요.
-				</div>
-				
-				<div style="height: 30px; clear: both;"></div>
+					<div id="poll_title" class="row"
+						style="margin: 0px; text-align: center;">
+						<b>설문조사</b>
+					</div>
+					<div style="color: gray;">
+						개인별 맞춤 서비스를 제공하기 위한 사전 설문조사입니다.<br> 한 달 평균 소비 패턴을 입력하시면, 분석 후
+						회원님께 최적의 카드를 추천해드립니다. <br>
+					</div>
+					<div style="height: 30px; clear: both;"></div>
+
+					<div style="width: 100%; color: red;">* 필수 입력 항목입니다. 빠짐없이
+						입력해주세요.</div>
+
+					<div style="height: 30px; clear: both;"></div>
 
 
 
 
 					<div id="div_cardtype_radio" style="width: 100%">
-					
+
 						<span class="custom-input-group-addon"> <i
-							class="fa fa-credit-card-alt" aria-hidden="true"></i>&nbsp;카드 유형&nbsp;<i style="color:red;">*</i>
+							class="fa fa-credit-card-alt" aria-hidden="true"></i>&nbsp;카드
+							유형&nbsp;<i style="color: red;">*</i>
+						</span> <span class="wrap"> <input name="cardtype" type="radio"
+							id="radio0" class="radio" value="credit"> <label
+							for="radio0" class="radio-label"> <i class="fa fa-check"></i>
+								<span>신용카드</span>
+						</label> <input name="cardtype" type="radio" id="radio1" class="radio"
+							value="check"> <label for="radio1" class="radio-label">
+								<i class="fa fa-check"></i> <span>체크카드</span>
+						</label>
 						</span>
-						
-						<span class="wrap">
-						<input name="cardtype" type="radio" id="radio0" class="radio" value="credit">
-						<label for="radio0" class="radio-label">
-							<i class="fa fa-check"></i>
-							<span>신용카드</span>
-						</label>
-						<input name="cardtype" type="radio" id="radio1" class="radio" value="check">
-						<label for="radio1" class="radio-label">
-							<i class="fa fa-check"></i>
-							<span>체크카드</span>
-						</label>
-						</span>			
 					</div>
-					
+
 					<div style="height: 10px; clear: both;"></div>
 
 					<!-- age -->
 					<div style="width: 100%">
 						<span class="custom-input-group-addon"> <i
-							class="fa fa-info" aria-hidden="true"></i>&nbsp;나이&nbsp;<i style="color:red;">*</i>
+							class="fa fa-info" aria-hidden="true"></i>&nbsp;나이&nbsp;<i
+							style="color: red;">*</i>
 						</span>&nbsp;만
 						<c:choose>
 							<c:when test="${ not empty loginUser }">
@@ -135,7 +129,8 @@
 					<div style="height: 10px; clear: both;"></div>
 
 					<div style="width: 100%">
-						<span class="custom-input-group-addon "> <i>￦</i>&nbsp;월 예산&nbsp;<i style="color:red;">*</i>
+						<span class="custom-input-group-addon "> <i>￦</i>&nbsp;월
+							예산&nbsp;<i style="color: red;">*</i>
 						</span>&nbsp; <input type="text" id="inputAmount" name="amount"
 							style="border: 0px; border-bottom: 1px solid black; width: 5%"
 							onkeydown="onlyNumber(this)">&nbsp;만원
@@ -660,6 +655,7 @@
 			</div>
 		</section>
 	</div>
+	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 	<%-- 
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" /> --%>
 

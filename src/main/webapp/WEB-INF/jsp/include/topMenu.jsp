@@ -12,9 +12,7 @@
 </script>
 
 <style type="text/css">
-.nav-link:hover {
-	color: #0085a1;
-}
+
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top"

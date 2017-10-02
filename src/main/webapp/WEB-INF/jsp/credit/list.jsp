@@ -8,26 +8,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Good Card - 신용카드</title>
 
 <!-- Bootstrap core CSS -->
 <c:set var="context" value="${pageContext.request.contextPath }" />
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=7">
 <link
-	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=4"
+	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/main.css?ver=4"
+<link href="${context}/resources/custom/css/main.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/topMenu.css?ver=4"
+<link href="${context}/resources/custom/css/topMenu.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/cleardiv.css?ver=4"
+<link href="${context}/resources/custom/css/cleardiv.css?ver=7"
 	rel="stylesheet">
 <!-- Custom fonts for this template -->
 <link
-	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=4"
+	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=7"
 	rel="stylesheet" type="text/css">
 <link
 	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
@@ -37,13 +37,13 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=4"
+<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/bootstrap/css/main.css?ver=4"
+<link href="${context}/resources/bootstrap/css/main.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/pollForm.css?ver=4"
+<link href="${context}/resources/custom/css/pollForm.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/creditList.css?ver=4"
+<link href="${context}/resources/custom/css/creditList.css?ver=7"
 	rel="stylesheet">
 
 
@@ -363,6 +363,7 @@
 	}
 </script>
 <style type="text/css">
+
 .click-benefit-info-area:hover {
 	font-weight: bold;
 }
@@ -513,16 +514,16 @@
 #search_option_area_open:hover {
 	font-weight: bold;
 }
+
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/include/topMenu.jsp" />
 
 	<hr style="margin-top: 0px; margin-bottom: 5px; clear: both;">
-	<div id="subMenu" class="container">
-		<a href="${context}" style="margin: 0"><i class="fa fa-home"
-			aria-hidden="true"></i></a> <a href="${context}">홈</a>><a>카드</a>><a
-			href="${context}/credit.do?pageNo=1">신용카드</a>
+	<div id="subMenu" class="container" style="font-size: 11pt">
+		<a href="${context}" style="margin:0"><i class="fa fa-home" aria-hidden="true"></i></a>
+		<a href="${context}">홈</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a>카드</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a href="${context}/credit.do">신용카드</a>
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
 
@@ -997,6 +998,7 @@
 	</div>
 
 	<div style="height: 30px; clear: both;"></div>
+	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 
 
 	<!-- Bootstrap core JavaScript -->

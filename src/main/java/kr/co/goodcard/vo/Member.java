@@ -21,17 +21,19 @@ public class Member {
 	private String type;
 	private String inputBirthDate;
 	private Date birthDate;
+	private String strDate;
 	private String card1;
 	private String card2;
 	private String card3;
 	
 	public Member() {
-
+	
 	}
-
+	
 	public Member(int no, String id, String password, String name, String gender, String email, String emailId,
 			String emailDomain, String phone, String phone1, String phone2, String phone3, int tendency, int pollNo,
-			String type, String inputBirthDate, Date birthDate, String card1, String card2, String card3) {
+			String type, String inputBirthDate, Date birthDate, String strDate, String card1, String card2,
+			String card3) {
 		this.no = no;
 		this.id = id;
 		this.password = password;
@@ -49,6 +51,7 @@ public class Member {
 		this.type = type;
 		this.inputBirthDate = inputBirthDate;
 		this.birthDate = birthDate;
+		this.strDate = strDate;
 		this.card1 = card1;
 		this.card2 = card2;
 		this.card3 = card3;
@@ -190,6 +193,14 @@ public class Member {
 		this.birthDate = birthDate;
 	}
 
+	public String getStrDate() {
+		return strDate;
+	}
+
+	public void setStrDate(String strDate) {
+		this.strDate = strDate;
+	}
+
 	public String getCard1() {
 		return card1;
 	}
@@ -220,7 +231,8 @@ public class Member {
 				+ ", email=" + email + ", emailId=" + emailId + ", emailDomain=" + emailDomain + ", phone=" + phone
 				+ ", phone1=" + phone1 + ", phone2=" + phone2 + ", phone3=" + phone3 + ", tendency=" + tendency
 				+ ", pollNo=" + pollNo + ", type=" + type + ", inputBirthDate=" + inputBirthDate + ", birthDate="
-				+ birthDate + ", card1=" + card1 + ", card2=" + card2 + ", card3=" + card3 + "]";
+				+ birthDate + ", strDate=" + strDate + ", card1=" + card1 + ", card2=" + card2 + ", card3=" + card3
+				+ "]";
 	}
 	
 }

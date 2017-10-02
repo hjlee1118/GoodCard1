@@ -11,12 +11,12 @@
 <c:set var="context" value="${pageContext.request.contextPath }" />
 
 <link
-	href="resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=4"
+	href="resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/custom/css/main.css?ver=4" rel="stylesheet">
+<link href="resources/custom/css/main.css" rel="stylesheet">
 <!-- Custom fonts for this template -->
 <link
-	href="resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=4"
+	href="resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link
 	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
@@ -26,10 +26,10 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="resources/bootstrap/css/clean-blog.min.css?ver=4"
+<link href="resources/bootstrap/css/clean-blog.min.css"
 	rel="stylesheet">
-<link href="resources/bootstrap/css/main.css?ver=4" rel="stylesheet">
-<link href="resources/custom/css/topMenu.css" rel="stylesheet">
+<link href="resources/bootstrap/css/main.css" rel="stylesheet"><!-- 
+<link href="resources/custom/css/topMenu.css" rel="stylesheet"> -->
 <script type="text/javascript">
 	function goLoginPage() {
 		alert('로그인해주세요.');
@@ -50,7 +50,8 @@ a.hover-option:hover {
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
 		id="mainNav">
 	<div class="container">
-		<a class="navbar-brand" href="${ pageContext.request.contextPath }">Good Card</a>
+		<a class="navbar-brand" href="${ pageContext.request.contextPath }">Good
+			Card</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
@@ -171,6 +172,8 @@ a.hover-option:hover {
 	<hr>
 
 	<!-- Footer -->
+
+	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" />
 

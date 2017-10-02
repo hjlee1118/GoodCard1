@@ -19,14 +19,9 @@ import kr.co.goodcard.vo.Member;
 @Controller
 @RequestMapping("member")
 public class MemberController {
-	
-	
+
 	@Autowired
 	MemberService memberService;
-	
-	/**
-	 * 회원 가입하는 폼을 내려준다.
-	 */
 
 	@RequestMapping(value = "join.do", method = RequestMethod.GET)
 	public String joinForm() {
@@ -37,6 +32,8 @@ public class MemberController {
 	public String join(Member member) {
 		member.setPhone(member.getPhone1() + '-' + member.getPhone2() + '-' + member.getPhone3());
 		member.setBirthDate(Util.TransformDate(member.getInputBirthDate()));
+
+		System.out.print("회원가입");
 		System.out.println(member);
 		boolean isSuccess = memberService.insertMember(member);
 		if (isSuccess == false) {
@@ -47,13 +44,11 @@ public class MemberController {
 
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)
 	public String loginForm() {
-		System.out.println("loginForm 실행");
 		return "member/loginForm";
 	}
 
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session) {
-		System.out.println(member);
 		Member loginUser = memberService.login(member);
 		if (loginUser == null) {
 			return "member/loginForm";
@@ -69,18 +64,51 @@ public class MemberController {
 	}
 
 	@ResponseBody
-	@RequestMapping("checkId.do")
-	public int checkId(String currentId) {
-		System.out.println(currentId);
-		int count = memberService.checkId(currentId);
+	@RequestMapping(value = "checkId.do", method = RequestMethod.POST)
+	public int checkId(String id) {
+		int count = memberService.checkId(id);
 		return count;
 	}
-	
-	@RequestMapping("mypage.do")
-	public String mypage(HttpSession session){
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println(loginUser);
-		return "member/mypage";
+
+	@RequestMapping(value = "mypage.do", method = RequestMethod.GET)
+	public String mypage(HttpSession session) {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		if (loginUser != null) {
+			String phone[] = loginUser.getPhone().split("-");
+			loginUser.setPhone1(phone[0]);
+			loginUser.setPhone2(phone[1]);
+			loginUser.setPhone3(phone[2]);
+
+			String str = "";
+			String birthDate[] = loginUser.getBirthDate().toString().split("-");
+			for (String s : birthDate) {
+				str += s;
+			}
+			System.out.println("입력받은 str : " + str);
+			loginUser.setInputBirthDate(str);
+			session.setAttribute("loginUser", loginUser);
+			return "member/mypage";
+		}
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "mypage.do", method = RequestMethod.POST)
+	public String updateMember(Member member, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		member.setId(loginUser.getId());
+		member.setPhone(member.getPhone1() + '-' + member.getPhone2() + '-' + member.getPhone3());
+		member.setBirthDate(Util.TransformDate(member.getInputBirthDate()));
+		System.out.println("계산된 birthDate" + member.getBirthDate());
+		boolean b = memberService.updateMember(member);
+		if (b == true) {
+			session.setAttribute("loginUser", member);
+			System.out.println(member);
+			return "member/mypage";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 }

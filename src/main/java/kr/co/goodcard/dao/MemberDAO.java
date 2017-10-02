@@ -15,4 +15,6 @@ public interface MemberDAO {
 	
 	boolean updatePollNo(Member member);
 
+	boolean updateMember(Member member);
+
 }

@@ -38,6 +38,12 @@ public class MemberServiceImpl implements MemberService {
 	public boolean updatePollNo(Member member) {
 		boolean b = memberDAO.updatePollNo(member);
 		return b;
+	}
+
+	@Override
+	public boolean updateMember(Member member) {
+		boolean b = memberDAO.updateMember(member);
+		return b;
 	}	
 
 }

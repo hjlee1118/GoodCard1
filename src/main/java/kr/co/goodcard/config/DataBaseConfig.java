@@ -26,7 +26,7 @@ public class DataBaseConfig implements TransactionManagementConfigurer {
 	private static String PASSWORD = "goodcard";*/
 	
 	private static String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static String URL = "jdbc:mysql://13.125.9.203:3306/hana";
+	private static String URL = "jdbc:mysql://13.125.9.203:3306/hana?useUnicode=true&characterEncoding=utf8";
 	private static String USERNAME = "goodcard";
 	private static String PASSWORD = "goodcard";
 

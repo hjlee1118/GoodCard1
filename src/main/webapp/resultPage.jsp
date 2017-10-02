@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +119,7 @@ html, body {
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
 
-	<div class="poll-main" style="background: #545762; height: auto;">
+	<div class="poll-main" style="background: #545762">
 
 		<section class="section-wrapper"
 			style="padding-top: 100px; padding-bottom: 100px;">
@@ -128,10 +127,6 @@ html, body {
 			<div
 				style="width: 100%; color: white; float: center; text-align: center; font-size: 30pt;">설문조사
 				분석 결과</div>
-			<div style="height: 20px; clear:both;"></div>
-			<div style="width: 100%; color: white; float: center; text-align: center; font-size: 13pt;">
-				설문조사  내용을 바탕으로 카드를 추천해드립니다.
-			</div>
 			<div style="height: 50px; clear: both;"></div>
 			<div style="width: 100%; background: white;">
 				<div style="height: 50px; clear: both;"></div>
@@ -142,8 +137,7 @@ html, body {
 					style="width: 10%; border-bottom: 3px solid black; margin-left: 45%; margin-right: 45%;"></div>
 				<div style="height: 30px; clear: both;"></div>
 				<hr>
-				<c:forEach items="${resultCardList}" var="list" varStatus="status"
-					begin="0" end="4">
+				<c:forEach items="${resultCardList}" var="list" varStatus="status" begin="0" end="5">
 
 					<div style="height: 30px; clear: both;"></div>
 
@@ -155,7 +149,7 @@ html, body {
 						</div>
 
 						<div class="card-image-area"
-							style="height: 126.6px; background: url('http://13.125.9.203${list.imagePath}'); background-size: contain;	background-repeat: no-repeat;">
+							style="height: 126.6px; background: url('13.125.9.203${list.imagePath}'); background-size: contain;	background-repeat: no-repeat;">
 							<%-- img src="${context}/resources/cardImage/${list.imagePath}" style="width: 300px; height: 126.6px;"> --%>
 						</div>
 
@@ -177,29 +171,40 @@ html, body {
 										${list.annotation} "</div>
 								</c:otherwise>
 							</c:choose>
-							
 						</div>
 
-				
-
-
-						<div
-							style="display: inline-block; float: right; height: 100%; margin-right: 3%;">
+						<div style="display: inline-block; float: right; height: 100%;">
 							<span style="text-align: center;" class="card-detail-button"
-								onclick="goDetailPage('${status.index}', '${list.id }')">
-								<a href="#open${ status.index }" class="card-detail-button"
+								onclick="goDetailPage('${status.index}', '${list.id }')"> <a
+								href="#open${ status.index }" class="card-detail-button"
 								style="color: #0085a1;">상세 보기</a>
 							</span> <span class="card-homepage-button"
 								onclick="goCardHomepage('${list.homepageURL}')"
 								style="text-align: center;"> 카드 신청 </span>
 
+							<c:choose>
+								<c:when
+									test="${ loginUser.card1 eq list.id || loginUser.card2 eq list.id || loginUser.card3 eq list.id}">
+									<span id="mycard_detail_${status.index}" class="card-detail-button"
+										title="D" style="color: #0085a1; text-align: center;"
+										onclick="myCard('${ list.id }', '${ status.index }')"> <%--  onclick="deleteMyCard('${ list.id }', '${ status.index }');" --%>
+										<i id="mycard${ status.index }" class="fa fa-minus"
+										aria-hidden="true"></i> &nbsp;mycard
+									</span>
+								</c:when>
+								<c:otherwise>
+									<span id="mycard_detail_${status.index}" class="card-detail-button"
+										title="I" style="color: #0085a1; text-align: center;"
+										onclick="myCard('${ list.id }', '${ status.index }')"> <%--  onclick="insertMyCard('${ list.id }', '${ status.index }');" --%>
+										<i id="mycard${ status.index }" class="fa fa-plus"
+										aria-hidden="true"></i> &nbsp;My Card
+									</span>
+								</c:otherwise>
+							</c:choose>
 
 						</div>
 
 					</div>
-					<div style="height: 30px; clear: both;"></div>
-					<div style="text-align:right; font-size: 15pt; display: inherit; margin-right: 5%;">총<b>&nbsp;<fmt:formatNumber value="${list.totalBenefit}"
-															groupingUsed="true" /></b> 원 혜택</div>
 					<div style="height: 30px; clear: both;"></div>
 					<hr>
 
@@ -212,7 +217,7 @@ html, body {
 							</div>
 							<div style="clear: both;"></div>
 							<div class="card-image-area"
-								style="background: url('http://13.125.9.203${list.imagePath}'); background-repeat: no-repeat; background-size: contain;"></div>
+								style="background: url('13.125.9.203${list.imagePath}'); background-repeat: no-repeat; background-size: contain;"></div>
 							<div class="card-summarized-info">
 								<div class="info-padding">${list.brand}</div>
 								<div class="info-padding"
@@ -364,8 +369,7 @@ html, body {
 													전월 실적 없음
 												</c:when>
 													<c:otherwise>
-												지난 달 카드&nbsp;<fmt:formatNumber
-															value="${ brandList.prevPerformance  }"
+												지난 달 카드&nbsp;<fmt:formatNumber	value="${ brandList.prevPerformance  }"
 															groupingUsed="true" />원 이상 사용 시
 												</c:otherwise>
 												</c:choose>

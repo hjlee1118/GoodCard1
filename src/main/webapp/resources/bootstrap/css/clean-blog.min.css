@@ -32,14 +32,6 @@ a {
 	transition: all .2s
 }
 
-a:focus, a:hover {
-	color: #0085a1
-}
-
-a img:focus, a img:hover {
-	cursor: zoom-in
-}
-
 blockquote {
 	font-style: italic;
 	color: #777
@@ -123,9 +115,6 @@ body {
 	#mainNav .navbar-brand {
 		padding: 15px 20px;
 		color: #fff
-	}
-	#mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-		color: rgba(255, 255, 255, .8)
 	}
 	#mainNav .navbar-nav>li.nav-item>a {
 		padding: 15px 20px;
@@ -271,11 +260,6 @@ header.masthead .post-heading .meta a {
 	color: #333
 }
 
-.post-preview>a:focus, .post-preview>a:hover {
-	text-decoration: none;
-	color: #0085a1
-}
-
 .post-preview>a>.post-title {
 	font-size: 30px;
 	margin-top: 30px;
@@ -298,12 +282,6 @@ header.masthead .post-heading .meta a {
 	text-decoration: none;
 	color: #333
 }
-
-.post-preview>.post-meta>a:focus, .post-preview>.post-meta>a:hover {
-	text-decoration: underline;
-	color: #0085a1
-}
-
 @media only screen and (min-width:768px) {
 	.post-preview>a>.post-title {
 		font-size: 36px
@@ -408,12 +386,6 @@ footer .copyright {
 	background-color: #005b6e
 }
 
-/* .btn-primary:hover {
-	color: #fff;
-	border-color: #005264;
-	background-color: #005b6e
-} */
-
 .btn-primary.active, .btn-primary:active, .open>.btn-primary.dropdown-toggle
 	{
 	color: #fff;
@@ -421,28 +393,12 @@ footer .copyright {
 	background-color: #005b6e
 }
 
-.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover,
-	.btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover,
-	.open>.btn-primary.dropdown-toggle.focus, .open>.btn-primary.dropdown-toggle:focus,
-	.open>.btn-primary.dropdown-toggle:hover {
-	color: #fff;
-	border-color: #001c22;
-	background-color: #003d4a
-}
 
 .btn-primary.active, .btn-primary:active, .open>.btn-primary.dropdown-toggle
 	{
 	background-image: none
 }
 
-.btn-primary.disabled.focus, .btn-primary.disabled:focus, .btn-primary.disabled:hover,
-	.btn-primary[disabled].focus, .btn-primary[disabled]:focus,
-	.btn-primary[disabled]:hover, fieldset[disabled] .btn-primary.focus,
-	fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover
-	{
-	border-color: #0085a1;
-	background-color: #0085a1
-}
 
 .btn-primary .badge {
 	color: #0085a1;
@@ -452,10 +408,4 @@ footer .copyright {
 .btn-lg {
 	font-size: 16px;
 	padding: 25px 35px
-}
-
-.btn-default:focus, .btn-default:hover {
-	color: #fff;
-	border: 1px solid #0085a1;
-	background-color: #0085a1
 }

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Good Card - 체크카드</title>
 
 <!-- Bootstrap core CSS -->
 <c:set var="context" value="${pageContext.request.contextPath }" />
@@ -17,17 +17,17 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link
-	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=4"
+	href="${context}/resources/bootstrap/vendor/bootstrap/css/bootstrap.min.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/main.css?ver=4"
+<link href="${context}/resources/custom/css/main.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/topMenu.css?ver=4"
+<link href="${context}/resources/custom/css/topMenu.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/cleardiv.css?ver=4"
+<link href="${context}/resources/custom/css/cleardiv.css?ver=5"
 	rel="stylesheet">
 <!-- Custom fonts for this template -->
 <link
-	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=4"
+	href="${context}/resources/bootstrap/vendor/font-awesome/css/font-awesome.min.css?ver=5"
 	rel="stylesheet" type="text/css">
 <link
 	href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
@@ -37,13 +37,13 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- Custom styles for this template -->
-<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=4"
+<link href="${context}/resources/bootstrap/css/clean-blog.min.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/bootstrap/css/main.css?ver=4"
+<link href="${context}/resources/bootstrap/css/main.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/pollForm.css?ver=4"
+<link href="${context}/resources/custom/css/pollForm.css?ver=5"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/creditList.css?ver=4"
+<link href="${context}/resources/custom/css/creditList.css?ver=5"
 	rel="stylesheet">
 
 
@@ -521,10 +521,12 @@
 	<jsp:include page="/WEB-INF/jsp/include/topMenu.jsp" />
 
 	<hr style="margin-top: 0px; margin-bottom: 5px; clear: both;">
-	<div id="subMenu" class="container">
+	<div id="subMenu" class="container" style="font-size: 11pt">
 		<a href="${context}" style="margin: 0"><i class="fa fa-home"
-			aria-hidden="true"></i></a> <a href="${context}">홈</a>><a>카드</a>><a
-			href="${context}/check.do?pageNo=1">체크카드</a>
+			aria-hidden="true"></i></a> <a href="${context}">홈</a><i
+			class="fa fa-chevron-right" aria-hidden="true"></i><a>카드</a><i
+			class="fa fa-chevron-right" aria-hidden="true"></i><a
+			href="${context}/check.do">체크카드</a>
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
 
@@ -772,7 +774,8 @@
 							<div class="info-padding"
 								style="font-size: 15pt; font-weight: bold;">
 								${list.cardName}</div>
-							<div style="color: #0085a1; margin-top: 1%; text-align: left; width: 500px;">
+							<div
+								style="color: #0085a1; margin-top: 1%; text-align: left; width: 500px;">
 								" ${list.annotation} "</div>
 						</div>
 						<div class="card-summarized-button"
@@ -981,6 +984,7 @@
 	</div>
 
 	<div style="height: 30px; clear: both;"></div>
+	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 
 
 	<!-- Bootstrap core JavaScript -->

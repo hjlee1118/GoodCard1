@@ -75,7 +75,7 @@ public class RecommendController {
 	private static final String HOST = "13.125.9.203";
 	private static final ArrayList<String> CATEGORY_LIST = new ArrayList<>();
 	private static MongoClient mongoClient = new MongoClient(HOST, 27017);
-	private static MongoDatabase db = mongoClient.getDatabase("test");
+	private static MongoDatabase db = mongoClient.getDatabase("hana");
 	private static MongoCollection<Document> creditCardCollection = db.getCollection("creditCard");
 	private static MongoCollection<Document> checkCardCollection = db.getCollection("checkCard");
 	// private static MongoCollection<Document> hybridCardCollection =
@@ -543,9 +543,14 @@ public class RecommendController {
 		int length = Math.min(cardListLength, 100);
 		for(int i = 0; i < length; i++) {
 			resultCardList.add(cardList.get(i));
+		}/*
+		System.out.println(resultCardList.get(0));*/
+		if(resultCardList.size() == 0 || resultCardList == null){
+			model.addAttribute("resultCardList", null);
 		}
-		System.out.println(resultCardList.get(0));
-		model.addAttribute("resultCardList", resultCardList);
+		else{
+			model.addAttribute("resultCardList", resultCardList);
+		}
 		System.out.println("작업 끝");
 		return "recommend/resultPage";
 	}

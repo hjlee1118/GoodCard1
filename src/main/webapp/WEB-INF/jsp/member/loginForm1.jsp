@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Good Card - 로그인</title>
+<title>Insert title here</title>
 
 <!-- Bootstrap core CSS -->
 <c:set var="context" value="${pageContext.request.contextPath }" />
@@ -39,14 +39,11 @@
 	rel="stylesheet">
 <link href="${context}/resources/custom/css/pollForm.css?ver=7"
 	rel="stylesheet">
-<link href="${context}/resources/custom/css/joinForm.css?ver=7"
-	rel="stylesheet">
-<link href="${context}/resources/custom/css/topMenu.css?ver=7" rel="stylesheet">
 
 <!-- Script File -->
 <script src="${context}/resources/custom/js/jquery-3.2.1.js"></script>
-<script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script>
-<script src="${context}/resources/custom/js/joinForm2.js"></script>
+<script src="${context}/resources/custom/js/jquery-3.2.1.min.js"></script><%-- 
+<script src="${context}/resources/custom/js/poll.js"></script> --%>
 <script type="text/javascript">
 
 function go_join_form() {
@@ -261,8 +258,8 @@ input, button, select, textarea {
 	width:100%;
 }
 
-
 </style>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/include/topMenu.jsp" />
@@ -277,7 +274,7 @@ input, button, select, textarea {
 
 
 
-	<div class="poll-main">
+	<div class="login-main">
 
 		<section class="section-wrapper"
 			style="padding-top: 100px; padding-bottom: 100px;">
@@ -344,7 +341,7 @@ input, button, select, textarea {
 			</div>
 		</section>
 	</div>
-
+	
 	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" />
 

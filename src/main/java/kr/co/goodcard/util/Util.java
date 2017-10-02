@@ -327,6 +327,8 @@ public final class Util {
 
 		// 반환된 String 값을 Date로 변경한다.
 		Date d = Date.valueOf(transDate);
+		System.out.println("string d : " + date);
+		System.out.println("util d : " + d);
 
 		return d;
 	}

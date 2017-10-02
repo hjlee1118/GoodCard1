@@ -44,8 +44,6 @@ function goCardHomepage(url) {
 				success : function(id, cardNo) {
 					alert('My Card 목록에 추가하였습니다.');
 				},
-				complete : function(id, cardNo) {
-				},
 				error : function(xhr, status, error) {
 					alert('My Card 목록에 추가하던 도중 오류가 발생했습니다. 관리자에게 문의하세요.');
 				}
