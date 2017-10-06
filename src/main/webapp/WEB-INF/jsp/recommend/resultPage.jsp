@@ -48,43 +48,70 @@
 <script type="text/javascript">
 	$(function() {
 
-		/* $('#menu20').attr('class', 'box-active');
-		$('#menu20').attr('title', 'a');
-
-		for (var i = 0; i < 20; i++) {
-			$('#menu' + i).attr('class', 'content');
-			$('#menu' + i).attr('title', 'i');
-		}
-		; */
-
-		$('.card-info-area').show();
+		$('.input-info-area').show();
+		$('.card-info-area').hide();
 		$('.benefit-info-area').hide();
+
+		$('.click-input-info-area').click(function() {
+			$('.input-info-area').show();
+			$('.card-info-area').hide();
+			$('.benefit-info-area').hide();
+			$('.click-benefit-info-area').css("color", "#7b7b7b");
+			$('.click-card-info-area').css("color", "#7b7b7b");
+			$('.click-input-info-area').css("color", "#0085a1");
+		});
 
 		$('.click-card-info-area').click(function() {
 			$('.card-info-area').show();
+			$('.input-info-area').hide();
 			$('.benefit-info-area').hide();
 			$('.click-benefit-info-area').css("color", "#7b7b7b");
+			$('.click-input-info-area').css("color", "#7b7b7b");
 			$('.click-card-info-area').css("color", "#0085a1");
 		});
 
 		$('.click-benefit-info-area').click(function() {
 			$('.benefit-info-area').show();
+			$('.input-info-area').hide();
 			$('.card-info-area').hide();
 			$('.click-card-info-area').css("color", "#7b7b7b");
+			$('.click-input-info-area').css("color", "#7b7b7b");
 			$('.click-benefit-info-area').css("color", "#0085a1");
 		});
 
 		$('.card-detail-button').click(function() {
-			$('.card-info-area').show();
+			$('.input-info-area').show();
+			$('.card-info-area').hide();
 			$('.benefit-info-area').hide();
 			$('.click-benefit-info-area').css("color", "#7b7b7b");
-			$('.click-card-info-area').css("color", "#0085a1");
+			$('.click-card-info-area').css("color", "#7b7b7b");
+			$('.click-input-info-area').css("color", "#0085a1");
 		});
 
 		$('#search_option_area_open').click(function() {
 			$('#search_option_area').toggle();
 		})
 	});
+
+	/* function detailPage(list){
+		alert(list);
+		//jQuery.ajaxSettings.traditional = true;
+		
+		var card = {'card' : list};
+		jQuery.ajax({
+			type : 'post',
+			url : "${context}/recommend/detail.do",
+			data : JSON.stringify(card),
+			dataType : 'json',
+			contentType : 'application/json',
+			success : function() {
+				alert('성공');
+				location.replace('${context}/recommend/detail.do');
+			},
+			error : function(xhr, status, error) {
+			}
+		});
+	}  */
 </script>
 <style type="text/css">
 html, body {
@@ -128,10 +155,10 @@ html, body {
 			<div
 				style="width: 100%; color: white; float: center; text-align: center; font-size: 30pt;">설문조사
 				분석 결과</div>
-			<div style="height: 20px; clear:both;"></div>
-			<div style="width: 100%; color: white; float: center; text-align: center; font-size: 13pt;">
-				설문조사  내용을 바탕으로 카드를 추천해드립니다.
-			</div>
+			<div style="height: 20px; clear: both;"></div>
+			<div
+				style="width: 100%; color: white; float: center; text-align: center; font-size: 13pt;">
+				설문조사 내용을 바탕으로 카드를 추천해드립니다.</div>
 			<div style="height: 50px; clear: both;"></div>
 			<div style="width: 100%; background: white;">
 				<div style="height: 50px; clear: both;"></div>
@@ -177,10 +204,10 @@ html, body {
 										${list.annotation} "</div>
 								</c:otherwise>
 							</c:choose>
-							
+
 						</div>
 
-				
+
 
 
 						<div
@@ -198,8 +225,11 @@ html, body {
 
 					</div>
 					<div style="height: 30px; clear: both;"></div>
-					<div style="text-align:right; font-size: 15pt; display: inherit; margin-right: 5%;">총<b>&nbsp;<fmt:formatNumber value="${list.totalBenefit}"
-															groupingUsed="true" /></b> 원 혜택</div>
+					<div
+						style="text-align: right; font-size: 15pt; display: inherit; margin-right: 5%;">
+						총<b>&nbsp;<fmt:formatNumber value="${list.totalBenefit}"
+								groupingUsed="true" /></b> 원 혜택
+					</div>
 					<div style="height: 30px; clear: both;"></div>
 					<hr>
 
@@ -230,18 +260,15 @@ html, body {
 										onclick="goCardHomepage('${list.homepageURL}')"></i>
 								</div>
 								<div style="height: 20px; clear: both;"></div>
-								<div style="float: left;">
-									<i id="modal_mycard_${status.index}" class="fa fa-minus fa-2x"
-										aria-hidden="true"
-										style="background: white; padding: 1px; color: #0085a1; cursor: pointer;"
-										title="I"
-										; onclick="modalMyCard('${ list.id }', '${ status.index }')"></i>
-								</div>
 							</div>
 							<div style="height: 15px; clear: both;"></div>
 							<div class="card-detail-menu-area">
-								<div class="click-card-info-area"
+								<div class="click-input-info-area"
 									style="color: #0085a1; font-size: 12pt; font-style: bold; display: inline-block; margin-right: 60px; cursor: pointer;">
+									<b>받으실 수 있는 혜택</b>
+								</div>
+								<div class="click-card-info-area"
+									style="color: #7b7b7b; font-size: 12pt; font-style: bold; display: inline-block; margin-right: 60px; cursor: pointer;">
 									<b>카드 정보</b>
 								</div>
 								<div class="click-benefit-info-area"
@@ -249,8 +276,58 @@ html, body {
 									<b>혜택 정보</b>
 								</div>
 							</div>
+							<div style="height: 20px; clear: both;"></div>
+
+							<div class="input-info-area">
 							<div style="height: 10px; clear: both;"></div>
+								<c:choose>
+									<c:when test="${ not empty list.estimate }">
+
+										<div class="card-detail-subtitle" style="font-size: 13pt;">
+											"&nbsp;월&nbsp; <b><fmt:formatNumber
+													value="${ inputPollAmount * 10000 }" groupingUsed="true" />
+												&nbsp;</b>원 사용 시 최대&nbsp; <c:choose>
+													<c:when
+														test="${ list.estimate.limitBenefit < list.estimate.total}">
+														<b><fmt:formatNumber value="${ list.estimate.total }"
+															groupingUsed="true" /></b>
+													</c:when>
+													<c:otherwise>
+														<b><fmt:formatNumber value="${ list.estimate.limitBenefit }"
+															groupingUsed="true" /></b>
+													</c:otherwise>
+												</c:choose> &nbsp;혜택&nbsp;"
+										</div>
+									</c:when>
+									<c:otherwise>
+										혜택 정보가 없습니다.
+									</c:otherwise>
+								</c:choose>
 							<div style="height: 10px; clear: both;"></div>
+							<hr>
+							<div style="height: 10px; clear: both;"></div>
+							<div class="card-detail-subtitle" style="color: #0085a1; font-size: 13pt;">
+								<b>상세 내역</b>
+							</div>
+							<div style="height: 10px; clear: both;"></div>
+							<c:forEach items="${ list.estimate.benefitList }"
+								var="benefitList" varStatus="status">
+								<div class="card-detail-subtitle">
+									<b>${ benefitList.brand }에서&nbsp;${ benefitList.benefit }</b>
+								</div>
+								<div style="height: 15px; clear: both;"></div>
+								<div class="card-detail-subcontent">
+									월 <b><fmt:formatNumber value="${ benefitList.spendMoney }"
+											groupingUsed="true" /></b>&nbsp;원 사용 시&nbsp;
+									<fmt:formatNumber value="${ benefitList.benefitAmount }"
+										groupingUsed="true" />
+									</b> &nbsp;원 혜택
+								</div>
+								<div style="height: 10px; clear: both;"></div>
+								<hr>
+								<div style="height: 10px; clear: both;"></div>
+							</c:forEach>
+							</div>
 
 							<div class="card-info-area">
 								<div class="card-detail-subtitle">
@@ -391,20 +468,6 @@ html, body {
 		</section>
 	</div>
 
-
-	<%-- 
-	<c:forEach items="${resultCardList}" var="list" varStatus="status">
-
-		<div
-			style="display: inline-block; height: 100%; padding-top: 2.4%; float: left; width: 50%;">
-			${list.brand}
-			<div
-				style="color: black; padding: 10px 0px; font-size: 15pt; display: inherit;">
-				<b>${list.cardName}</b>
-			</div>
-		</div>
-
-	</c:forEach> --%>
 	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
 </body>
 </html>

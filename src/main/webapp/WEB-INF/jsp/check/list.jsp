@@ -88,7 +88,6 @@
 		}
 
 		var status = $('#modal_mycard_' + cardNo).attr('title');
-		alert(status);
 
 		if (status == 'I') {
 			var id = {

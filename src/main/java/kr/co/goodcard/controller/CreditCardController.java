@@ -33,6 +33,7 @@ import kr.co.goodcard.service.CardService;
 import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
 import kr.co.goodcard.util.Util;
+import kr.co.goodcard.vo.CheckCard;
 import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 import kr.co.goodcard.vo.mongo.AnnualFee;
@@ -173,11 +174,10 @@ public class CreditCardController {
 			int skipPage = (pageNo - 1) * 10;
 
 			DBCursor cursor;
-			
-			if(sortQuery != null && sortQuery.size() == 0){
+
+			if (sortQuery != null && sortQuery.size() == 0) {
 				cursor = collection.find().sort(sortQuery).limit(max);
-			}
-			else if (searchQuery != null && searchQuery.size() != 0) {
+			} else if (searchQuery != null && searchQuery.size() != 0) {
 				cursor = collection.find(searchQuery).skip(skipPage).limit(max);
 			} else {
 				cursor = collection.find().skip(skipPage).limit(max);
@@ -479,6 +479,33 @@ public class CreditCardController {
 		collection.update(query, intModifier, false, false, WriteConcern.SAFE);
 
 		return true;
+	}
+
+	/**
+	 * myPage에서 myCard 출력
+	 */
+	public static CreditCard searchCreditCardById(String id) {
+		System.out.println(id);
+		MongoClient mongo = MongoConfig.mongo();
+		DB db = mongo.getDB("hana");
+
+		// get a single collection
+		DBCollection collection = db.getCollection("creditCard");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(id));
+
+		DBObject dbObj = collection.findOne(query);
+
+		if (dbObj != null) {
+			CreditCard card = new CreditCard();
+			card.setBrand((String) dbObj.get("brand"));
+			card.setCardName((String) dbObj.get("cardName"));
+			card.setImagePath((String) dbObj.get("imagePath"));
+			card.setId(id);
+			System.out.println(card);
+			return card;
+		}
+		return null;
 	}
 
 }

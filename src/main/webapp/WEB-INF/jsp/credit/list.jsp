@@ -66,8 +66,8 @@
 			'id' : cardId
 		};
 
-		$.ajax({
-			type : "POST",
+		$jQuery.ajax({
+			type : 'POST',
 			url : "${context}/credit/updateViewCnt.do",
 			data : id,
 			dataType : 'json',

@@ -16,5 +16,5 @@ public interface ManagerService {
 
 	List<CreditCard> getCreditCardRank();
 
-	List<CheckCard> getCheckCardRank();
+	List<CreditCard> getCheckCardRank();
 }

@@ -2,6 +2,8 @@ package kr.co.goodcard.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.goodcard.service.MemberService;
 import kr.co.goodcard.util.Util;
+import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 
 @Controller
@@ -72,9 +75,9 @@ public class MemberController {
 
 	@RequestMapping(value = "mypage.do", method = RequestMethod.GET)
 	public String mypage(HttpSession session) {
-		
+
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		
+
 		if (loginUser != null) {
 			String phone[] = loginUser.getPhone().split("-");
 			loginUser.setPhone1(phone[0]);
@@ -86,8 +89,44 @@ public class MemberController {
 			for (String s : birthDate) {
 				str += s;
 			}
-			System.out.println("입력받은 str : " + str);
 			loginUser.setInputBirthDate(str);
+
+			List<String> nameList = new ArrayList<>();
+
+			if (loginUser.getCard1() == null || loginUser.getCard1().length() != 0) {
+				nameList.add(loginUser.getCard1());
+			}
+			if (loginUser.getCard2() == null || loginUser.getCard2().length() != 0) {
+				nameList.add(loginUser.getCard2());
+			}
+			if (loginUser.getCard3() == null || loginUser.getCard3().length() != 0) {
+				nameList.add(loginUser.getCard3());
+			}
+
+			List<CreditCard> myCardList = new ArrayList<>();
+
+			for (String id : nameList) {
+				CreditCard myCard = new CreditCard();
+				try {
+					myCard = CreditCardController.searchCreditCardById(id);
+					if (myCard.getCardName() == null || myCard.getCardName().length() == 0) {
+
+					} else {
+						myCardList.add(myCard);
+					}
+				} catch (Exception e) {
+				}
+				try {
+					myCard = CheckCardController.searchCheckCardById(id);
+					if (myCard.getCardName() == null || myCard.getCardName().length() == 0) {
+
+					} else {
+						myCardList.add(myCard);
+					}
+				} catch (Exception e) {
+				}
+			}
+			session.setAttribute("myCardList", myCardList);
 			session.setAttribute("loginUser", loginUser);
 			return "member/mypage";
 		}

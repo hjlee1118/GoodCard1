@@ -18,12 +18,12 @@ from SEARCH_KEYWORD
 where card_type=`credit` and age between 20 and 29;
 
 
-select * from MEMBER where id = `hjlee1118`;
+select * from MEMBER where ID = 'hjlee1118';
 
 
 update MEMBER
 set CARD1 = NULL, CARD2 = NULL, CARD3 = NULL
-where id = `hjlee1118`;
+where id = 'hjlee1118';
 
 commit;
 

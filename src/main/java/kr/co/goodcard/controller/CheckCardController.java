@@ -22,6 +22,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
@@ -31,6 +32,7 @@ import kr.co.goodcard.service.SearchKeywordService;
 import kr.co.goodcard.util.AgeUtils;
 import kr.co.goodcard.util.Util;
 import kr.co.goodcard.vo.CheckCard;
+import kr.co.goodcard.vo.CreditCard;
 import kr.co.goodcard.vo.Member;
 import kr.co.goodcard.vo.mongo.AnnualFee;
 import kr.co.goodcard.vo.mongo.Benefits;
@@ -86,7 +88,7 @@ public class CheckCardController {
 		int checkTotalCnt = 0;
 		int checkTotalPageCnt = 0;
 
-		List<CheckCard> checkCardList = new ArrayList<CheckCard>();
+		List<CreditCard> checkCardList = new ArrayList<CreditCard>();
 		BasicDBList brandLikeList = new BasicDBList();
 		BasicDBList categoryLikeList = new BasicDBList();
 
@@ -167,7 +169,8 @@ public class CheckCardController {
 		return count;
 	}
 
-	public static List<CheckCard> checkCardList(BasicDBObject searchQuery, BasicDBObject sortQuery, int pageNo, int max) {
+	public static List<CreditCard> checkCardList(BasicDBObject searchQuery, BasicDBObject sortQuery, int pageNo,
+			int max) {
 		try {
 			MongoClient mongo = MongoConfig.mongo();
 			DB db = mongo.getDB("hana");
@@ -178,21 +181,20 @@ public class CheckCardController {
 
 			DBCursor cursor;
 
-			if(sortQuery != null && sortQuery.size() == 0){
+			if (sortQuery != null && sortQuery.size() == 0) {
 				cursor = collection.find().sort(sortQuery).limit(max);
-			}
-			else if (searchQuery != null && searchQuery.size() != 0) {
+			} else if (searchQuery != null && searchQuery.size() != 0) {
 				cursor = collection.find(searchQuery).skip(skipPage).limit(max);
 			} else {
 				cursor = collection.find().skip(skipPage).limit(max);
 			}
 
-			List<CheckCard> list = new ArrayList<>();
+			List<CreditCard> list = new ArrayList<>();
 
 			while (cursor.hasNext()) {
 
 				BasicDBObject cardDBObject = (BasicDBObject) cursor.next();
-				CheckCard checkCard = new CheckCard();
+				CreditCard checkCard = new CreditCard();
 
 				checkCard.setId(cardDBObject.getString("_id"));
 				checkCard.setBrand(cardDBObject.getString("brand"));
@@ -440,8 +442,6 @@ public class CheckCardController {
 	@RequestMapping("check/updateViewCnt.do")
 	public boolean updateViewCnt(String id) {
 
-		System.out.println(id);
-
 		MongoClient mongo = MongoConfig.mongo();
 		DB db = mongo.getDB("hana");
 
@@ -459,4 +459,29 @@ public class CheckCardController {
 		return true;
 	}
 
+	/**
+	 * myPage에서 myCard 출력
+	 */
+	public static CreditCard searchCheckCardById(String id) {
+		MongoClient mongo = MongoConfig.mongo();
+		DB db = mongo.getDB("hana");
+
+		// get a single collection
+		DBCollection collection = db.getCollection("checkCard");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(id));
+
+		DBObject dbObj = collection.findOne(query);
+
+		if (dbObj != null) {
+			CreditCard card = new CreditCard();
+			card.setBrand((String) dbObj.get("brand"));
+			card.setCardName((String) dbObj.get("cardName"));
+			card.setId(id);
+
+			return card;
+		}
+
+		return null;
+	}
 }

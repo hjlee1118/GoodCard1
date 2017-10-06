@@ -49,6 +49,25 @@
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 		});
 	}
+	
+	function deleteMyCard(inputId){
+		var id = {'id' : inputId};
+		$.ajax({
+			type : "POST",
+			url : "${context}/deleteMyCard.do",
+			data : id,
+			dataType : 'json',
+			success : function(id, cardNo) {
+				alert('My Card 목록에서 삭제 되었습니다.');
+				location.replace("${context}/member/mypage.do");
+			},
+			complete : function(id, cardNo) {
+			},
+			error : function(xhr, status, error) {
+				alert('My Card 목록에서 삭제하던 중 오류가 발생했습니다. 관리자에게 문의하세요.');
+			}
+		});
+	}
 </script>
 
 
@@ -215,8 +234,8 @@
 				<div style="width: 100%">
 					<span class="custom-input-join-group-addon">생년월일</span> <input
 						type="text" id="inputBirthDate" name="inputBirthDate"
-						class="custom-join-input-value" value="${loginUser.inputBirthDate }"
-						onkeydown="onlyNumber(this)" />
+						class="custom-join-input-value"
+						value="${loginUser.inputBirthDate }" onkeydown="onlyNumber(this)" />
 				</div>
 
 
@@ -254,11 +273,44 @@
 				</div>
 
 				<div style="height: 20px; clear: both;"></div>
-
-				<div style="width: 100%">
-					<span class="custom-input-join-group-addon">My Card</span> <span
-						class="wrap"> 카드가 나올 영역 </span>
-				</div>
+				<c:choose>
+					<c:when test="${ not empty myCardList }">
+					
+					
+					</c:when>
+					<c:otherwise>
+					<div style="width: 100%">
+						<span class="custom-input-join-group-addon">My Card</span>
+						<span class="wrap" style="color: #7b7b7b;">등록된 My Card가 없습니다.</span>
+					</div>
+					<div style="width: 100%">
+						<span class="custom-input-join-group-addon"></span>
+						<span class="wrap" style="margin-right : 1%; color: #0085a1;">
+							<a href="${context}/credit.do?pageNo=1">신용카드</a>
+						</span>
+						<span class="wrap" style="margin-right : 1%; color: #0085a1;">
+							<a href="${context}/check.do?pageNo=1">체크카드</a>
+						</span>
+					</div>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach items="${ myCardList }" var="myCard" varStatus="status">
+					<div style="width: 100%">
+						<c:choose>
+							<c:when test="${status.index eq 0}">
+								<span class="custom-input-join-group-addon">My Card</span>
+							</c:when>
+							<c:otherwise>
+								<span class="custom-input-join-group-addon"></span>
+							</c:otherwise>
+						</c:choose>
+						<span style="color: red;" onclick="deleteMyCard('${ myCard.id }')"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+						<%-- <span style="width: 126.6px; height: 100px; background-repeat: no-repeat; background-size: contain; background: url('http://13.125.9.203${myCard.imagePath}');"></span>
+						 --%>
+						<span class="wrap" style="margin-left : 1%; color: #0085a1;"> ${ myCard.brand }
+						</span> <span class="wrap"> ${ myCard.cardName } </span>
+					</div>
+				</c:forEach>
 
 				<div style="height: 80px; clear: both;"></div>
 
@@ -275,8 +327,8 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/jsp/include/chatBot.jsp" />
-	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" />
-
+	<%-- <jsp:include page="/WEB-INF/jsp/include/bottom.jsp" />
+ --%>
 	<!-- Bootstrap core JavaScript -->
 	<script
 		src="${context}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>

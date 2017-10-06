@@ -62,8 +62,8 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<CheckCard> getCheckCardRank() {
-		List<CheckCard> checkCards = CheckCardController.checkCardList(null,  new BasicDBObject("viewCount", -1),1 ,10);
+	public List<CreditCard> getCheckCardRank() {
+		List<CreditCard> checkCards = CheckCardController.checkCardList(null,  new BasicDBObject("viewCount", -1),1 ,10);
 		return checkCards;
 	}
 

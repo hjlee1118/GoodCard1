@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -502,7 +503,6 @@ public class RecommendController {
          poll.setMemberNo(member.getNo());
       }
 
-      System.out.println("설문조사 제출");
       ArrayList<Integer> spendList = insertPollAndReturnSpendList(poll, transportation, communication, gasStation,
             movie, cafeBakery, restaurant, fastFood, cafeteria, convenience, mart, superMarket, onLineShopping,
             beauty, amusementPark, academy, bookstore, medical);
@@ -581,18 +581,29 @@ public class RecommendController {
          recommendCount.setAmusementPark(amusementPark.getAmusementParkAmount());
          recommendCount.setMedical(medical.getMedicalAmount());
          boolean b = recommendCountService.insertRecommendCount(recommendCount);
+         System.out.println(resultCardList.get(i).getEstimate());
          i++;
       }
       
       /*
       System.out.println(resultCardList.get(0));*/
       if(resultCardList.size() == 0 || resultCardList == null){
+    	 model.addAttribute("inputPollAmount", poll.getAmount());
          model.addAttribute("resultCardList", null);
       }
       else{
+     	 model.addAttribute("inputPollAmount", poll.getAmount());
          model.addAttribute("resultCardList", resultCardList);
       }
       System.out.println("작업 끝");
       return "recommend/resultPage";
+   }
+   
+   @ResponseBody
+   @RequestMapping(value="detail.do", method=RequestMethod.POST)
+   public String recommendDetail(CreditCard card, Model model){
+	   System.out.println(card);
+	   model.addAttribute("card", card);
+	   return "recommend/detail";
    }
 }

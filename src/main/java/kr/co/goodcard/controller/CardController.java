@@ -1,5 +1,6 @@
 package kr.co.goodcard.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -68,24 +69,58 @@ public class CardController {
 			cardService.deleteMyCard(id, member);
 			member.setCard1("");
 			session.setAttribute("loginUser", member);
-			return true;
 		}
 
 		if (member.getCard2() != null && member.getCard2().equals(id)) {
 			cardService.deleteMyCard(id, member);
 			member.setCard2("");
 			session.setAttribute("loginUser", member);
-			return true;
 		}
 
 		if (member.getCard3() != null && member.getCard3().equals(id)) {
 			cardService.deleteMyCard(id, member);
 			member.setCard3("");
 			session.setAttribute("loginUser", member);
-			return true;
 		}
 
-		return false;
+		List<String> nameList = new ArrayList<>();
+
+		if (member.getCard1() != null || member.getCard1().length() != 0) {
+			nameList.add(member.getCard1());
+		}
+		if (member.getCard2() != null || member.getCard2().length() != 0) {
+			nameList.add(member.getCard2());
+		}
+		if (member.getCard3() != null || member.getCard3().length() != 0) {
+			nameList.add(member.getCard3());
+		}
+
+		List<CreditCard> myCardList = new ArrayList<>();
+
+		for (String cardId : nameList) {
+			CreditCard myCard = new CreditCard();
+			try {
+				myCard = CreditCardController.searchCreditCardById(cardId);
+				if (myCard.getCardName() == null || myCard.getCardName().length() == 0) {
+
+				} else {
+					myCardList.add(myCard);
+				}
+			} catch (Exception e) {
+			}
+			try {
+				myCard = CheckCardController.searchCheckCardById(cardId);
+				if (myCard.getCardName() == null || myCard.getCardName().length() == 0) {
+
+				} else {
+					myCardList.add(myCard);
+				}
+			} catch (Exception e) {
+			}
+		}
+		session.setAttribute("myCardList", myCardList);
+
+		return true;
 	}
 
 }

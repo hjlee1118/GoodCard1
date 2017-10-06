@@ -47,7 +47,7 @@ public class HomeController {
 		
 		List<String> ageBenefitList = managerService.getBestBenefitByAge(age);
 		List<CreditCard> creditCardRank = managerService.getCreditCardRank();
-		List<CheckCard> checkCardRank = managerService.getCheckCardRank();
+		List<CreditCard> checkCardRank = managerService.getCheckCardRank();
 		
 		model.addAttribute("ageBenefitList", ageBenefitList);
 		model.addAttribute("selectBenefitList", selectCategoryList);
