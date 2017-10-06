@@ -523,7 +523,7 @@
 	<hr style="margin-top: 0px; margin-bottom: 5px; clear: both;">
 	<div id="subMenu" class="container" style="font-size: 11pt">
 		<a href="${context}" style="margin:0"><i class="fa fa-home" aria-hidden="true"></i></a>
-		<a href="${context}">홈</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a>카드</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a href="${context}/credit.do">신용카드</a>
+		<a href="${context}">홈</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a>카드</a><i class="fa fa-chevron-right" aria-hidden="true"></i><a href="${context}/credit.do?pageNo=1">신용카드</a>
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
 

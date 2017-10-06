@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.goodcard.dao.RecommendDAO">
 	
 	<insert id="insertPoll" parameterType="poll">
-		insert into POLL (member_no, amount, age, card_type) values(#{memberNo}, #{amount}, #{age}, #{cardtype})
+		insert into POLL (MEMBER_NO, AMOUNT, AGE, CARD_TYPE) values(#{memberNo}, #{amount}, #{age}, #{cardtype})
 	</insert>
 	
 	<insert id="insertTransportation" parameterType="transportation">
@@ -41,8 +41,8 @@
 	</insert>
 
 	<insert id="insertRestaurant" parameterType="restaurant">
-		insert into RESTAURANT (AMOUNT, outback, vips, ashley, 
-		tgif, madforgarlic, ETC) 
+		insert into RESTAURANT (AMOUNT, OUTBACK, VIPS, ASHLEY, 
+		TGIF, MADFORGARLIC, ETC) 
 		values
 		(#{restaurantAmount}, #{outback},
 		#{vips}, #{ashley}, #{tgif}, #{madForGarlic}, #{restaurantEtc})
@@ -97,9 +97,9 @@
 	</insert>
 	
 	<select id="selectPollNoByMemberNo" parameterType="int" resultType="int">
-		select max(no)
+		select max(NO)
 		from POLL
-		where member_no = #{memberNo}
+		where MEMBER_NO = #{memberNo}
 	</select>
 	
 </mapper>

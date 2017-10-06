@@ -22,6 +22,12 @@ $(function(){
 
 </script>
 <style>
+.wc-textbox{
+	left: 0px;
+}
+#bot > div > div > div.wc-console > label.wc-upload > svg{
+	display: none;
+}
 .wc-chatview-panel {
 	width: 100%;
 	height: 750px;
@@ -44,15 +50,16 @@ $(function(){
 <div id="drawerExample" class="drawer dw-xs-3 dw-sm-3 dw-md-3 fold"
 	aria-labelledby="drawerExample">
 	<div class="drawer-controls">
-		<a id="display" href="#drawerExample" data-toggle="drawer" aria-foldedopen="true" aria-controls="drawerExample" class="btn btn-primary btn-sm" style="background:black; border: black; padding: 15px; border: 0px; margin-right: 0px;">
+		<a id="display" href="#drawerExample" data-toggle="drawer" aria-foldedopen="true" aria-controls="drawerExample" class="btn btn-primary btn-sm" style="background:#0078D7; padding: 15px; margin-right: 0px;">
             	<i id="display_on" class="fa fa-commenting-o fa-lg" aria-hidden="true" style="margin-right: 0px;" title="Good Card 실시간 채팅"></i>
             	<i id="display_off" class="fa fa-times fa-lg" aria-hidden="true" style="display: none; margin-right: 0px;" title="닫기"></i>
-            </a>
+				
+        </a>
 	</div>
 	<div class="drawer-contents">
 		<div class="drawer-heading">
 			<div style="height:20px; clear: both;"></div>
-			<h3 align="center" class="drawer-title" style="border-bottom: 1px solid #E0E0E0; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-bottom: 3px;">&nbsp;Good Card&nbsp;</h3>
+			<h3 align="center" class="drawer-title" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-bottom: 3px;">&nbsp;Good Card&nbsp;</h3>
 			<div style="text-align:center; font-size:12pt;font-family: 'Nanum Gothic', serif;">실시간 채팅</div>
 			<div style="height:20px; clear: both;"></div>
 		</div>

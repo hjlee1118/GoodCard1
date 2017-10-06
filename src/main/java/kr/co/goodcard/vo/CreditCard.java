@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import kr.co.goodcard.vo.mongo.*;
+import kr.co.goodcard.vo.mongo.AnnualFee;
+import kr.co.goodcard.vo.mongo.Benefits;
+import kr.co.goodcard.vo.mongo.LimitBenefit;
+import kr.co.goodcard.vo.mongo.SpecialService;
 
 @Document(collection="creditCard")
 public class CreditCard implements Comparable<CreditCard>{
 	
 	@Id
 	private String id;
+	private int no;
 	private String brand;
 	private String cardType;
 	private String cardName;
@@ -29,12 +33,14 @@ public class CreditCard implements Comparable<CreditCard>{
 	public CreditCard() {
 		super();
 	}
-	
-	public CreditCard(String id, String brand, String cardType, String cardName, String annotation, String imagePath,
-			List<AnnualFee> annualFee, List<LimitBenefit> limitBenefit, List<SpecialService> specialServices,
-			List<Benefits> benefits, Estimate estimate, int viewCount, int totalBenefit, String homepageURL) {
+
+	public CreditCard(String id, int no, String brand, String cardType, String cardName, String annotation,
+			String imagePath, List<AnnualFee> annualFee, List<LimitBenefit> limitBenefit,
+			List<SpecialService> specialServices, List<Benefits> benefits, Estimate estimate, int viewCount,
+			int totalBenefit, String homepageURL) {
 		super();
 		this.id = id;
+		this.no = no;
 		this.brand = brand;
 		this.cardType = cardType;
 		this.cardName = cardName;
@@ -56,6 +62,14 @@ public class CreditCard implements Comparable<CreditCard>{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getBrand() {
@@ -167,6 +181,8 @@ public class CreditCard implements Comparable<CreditCard>{
 		StringBuilder builder = new StringBuilder();
 		builder.append("CreditCard [id=");
 		builder.append(id);
+		builder.append(", no=");
+		builder.append(no);
 		builder.append(", brand=");
 		builder.append(brand);
 		builder.append(", cardType=");

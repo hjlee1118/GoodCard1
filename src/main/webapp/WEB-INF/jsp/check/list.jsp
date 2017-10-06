@@ -526,7 +526,7 @@
 			aria-hidden="true"></i></a> <a href="${context}">홈</a><i
 			class="fa fa-chevron-right" aria-hidden="true"></i><a>카드</a><i
 			class="fa fa-chevron-right" aria-hidden="true"></i><a
-			href="${context}/check.do">체크카드</a>
+			href="${context}/check.do?pageNo=1">체크카드</a>
 	</div>
 	<hr style="margin-bottom: 0px; margin-top: 5px; clear: both;">
 
